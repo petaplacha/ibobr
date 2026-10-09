@@ -1,0 +1,1078 @@
+<title>Bobří výprava</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one column "river journey" – grade gate, then three river stretches (levels) of log stations, task sheet on top */
+:root {
+  --bg: #E6F2EE;
+  --surface: #FFFFFF;
+  --surface-2: #F1F8F5;
+  --ink: #1D3634;
+  --muted: #587370;
+  --line: #CFE2DC;
+  --river: #2C88B0;
+  --river-soft: #D3EBF4;
+  --wood: #94592F;
+  --wood-soft: #F3E3D4;
+  --leaf: #2F8A50;
+  --leaf-soft: #D8F0E0;
+  --sun: #E9A72B;
+  --bad: #C9503A;
+  --bad-soft: #F9E0DA;
+  --shadow: 0 2px 0 rgba(29,54,52,.08), 0 8px 24px rgba(29,54,52,.08);
+  --f-display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --f-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F201E; --surface: #17302C; --surface-2: #1C3833; --ink: #E4F1ED; --muted: #9BB6B0; --line: #2A4A44;
+    --river: #55B2DA; --river-soft: #173B4A; --wood: #D09363; --wood-soft: #3A2B1F; --leaf: #5CC07F; --leaf-soft: #1C3F2A;
+    --sun: #F4C255; --bad: #EB7C64; --bad-soft: #452621; --shadow: 0 2px 0 rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F201E; --surface: #17302C; --surface-2: #1C3833; --ink: #E4F1ED; --muted: #9BB6B0; --line: #2A4A44;
+  --river: #55B2DA; --river-soft: #173B4A; --wood: #D09363; --wood-soft: #3A2B1F; --leaf: #5CC07F; --leaf-soft: #1C3F2A;
+  --sun: #F4C255; --bad: #EB7C64; --bad-soft: #452621; --shadow: 0 2px 0 rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 48px; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.1; text-wrap: balance; margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--river); outline-offset: 2px; }
+
+/* top bar */
+.bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 800; font-size: 22px; background: none; border: 0; padding: 0; }
+.brand svg { width: 38px; height: 38px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+.star { color: var(--sun); }
+
+/* home */
+.hero { display: grid; gap: 14px; padding-block: 8px 20px; }
+.hero h1 { font-size: clamp(38px, 8vw, 60px); font-weight: 800; letter-spacing: -.5px; }
+.hero h1 span { color: var(--river); }
+.hero p { margin: 0; color: var(--muted); max-width: 52ch; font-size: 18px; }
+.name-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.name-row label { font-weight: 800; }
+.name-row input { font: inherit; font-weight: 700; padding: 10px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); min-width: 0; flex: 1 1 200px; max-width: 320px; }
+.grades { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 8px; }
+.grade { text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 22px; padding: 20px; display: grid; gap: 10px; box-shadow: var(--shadow); transition: transform .15s ease, border-color .15s ease; }
+.grade:hover { transform: translateY(-3px); border-color: var(--river); }
+.grade .num { font-family: var(--f-display); font-weight: 800; font-size: 46px; line-height: 1; color: var(--wood); }
+.grade .cat { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; color: var(--muted); }
+.grade h2 { font-size: 26px; }
+.meter { height: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--leaf); border-radius: 999px; transition: width .4s ease; }
+.grade .meta { display: flex; justify-content: space-between; font-weight: 700; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* map */
+.map-head { display: grid; gap: 6px; margin-bottom: 18px; }
+.map-head h1 { font-size: clamp(30px, 6vw, 42px); font-weight: 800; }
+.map-head p { margin: 0; color: var(--muted); }
+.summary { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 22px; }
+.level { position: relative; background: var(--surface); border: 2px solid var(--line); border-radius: 24px; padding: 18px 18px 22px; margin-bottom: 18px; box-shadow: var(--shadow); overflow: hidden; }
+.level-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.level h2 { font-size: 24px; }
+.level .lv { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; color: var(--river); }
+.level .count { font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stations { position: relative; display: flex; flex-wrap: wrap; gap: 18px 22px; margin-top: 16px; padding: 14px 6px 4px; }
+.stations::before { content: ""; position: absolute; left: 0; right: 0; top: 50px; height: 18px; background: var(--river-soft); border-radius: 999px; }
+.station { position: relative; display: grid; justify-items: center; gap: 6px; width: 96px; background: none; border: 0; padding: 0; }
+.log { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: 28px; background: var(--wood-soft); color: var(--wood); border: 4px solid var(--wood); box-shadow: inset 0 0 0 6px var(--wood-soft), inset 0 0 0 8px color-mix(in srgb, var(--wood) 35%, transparent); transition: transform .15s ease; }
+.station:hover .log { transform: scale(1.07) rotate(-4deg); }
+.station.done .log { background: var(--leaf-soft); border-color: var(--leaf); color: var(--leaf); box-shadow: none; }
+.station.revealed .log { background: var(--surface-2); border-color: var(--muted); color: var(--muted); box-shadow: none; }
+.station .st-name { font-size: 14px; font-weight: 700; text-align: center; line-height: 1.25; }
+.stars { font-size: 15px; letter-spacing: 1px; color: var(--line); }
+.stars b { color: var(--sun); font-weight: 400; }
+.level.locked .stations { opacity: .4; filter: grayscale(1); pointer-events: none; }
+.lock-note { margin-top: 10px; font-weight: 700; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+.badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+.badge { background: var(--surface); border: 2px dashed var(--line); border-radius: 18px; padding: 12px; display: grid; gap: 4px; justify-items: start; }
+.badge.got { border-style: solid; border-color: var(--sun); }
+.badge .b-ico { width: 34px; height: 34px; }
+.badge strong { font-family: var(--f-display); font-size: 17px; }
+.badge span { font-size: 13px; color: var(--muted); line-height: 1.3; }
+.section-title { font-size: 22px; margin: 28px 0 4px; }
+
+/* task */
+.task { background: var(--surface); border: 2px solid var(--line); border-radius: 26px; padding: 22px; box-shadow: var(--shadow); display: grid; gap: 16px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 3px 10px; border-radius: 999px; background: var(--river-soft); color: var(--river); }
+.chip.wood { background: var(--wood-soft); color: var(--wood); }
+.task h1 { font-size: clamp(26px, 5vw, 34px); font-weight: 800; }
+.task .text { max-width: 62ch; }
+.task .text p { margin: 0 0 10px; }
+.visual { background: var(--surface-2); border-radius: 18px; padding: 14px; overflow-x: auto; display: flex; justify-content: center; }
+.visual svg { max-width: 100%; height: auto; display: block; }
+.visual table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.plan { border-collapse: collapse; margin: 0 0 10px; font-variant-numeric: tabular-nums; }
+.plan td { padding: 6px 12px 6px 0; border-bottom: 1px solid var(--line); }
+.plan td:last-child { color: var(--muted); font-weight: 700; }
+.grade.expert { border-color: var(--sun); background: linear-gradient(160deg, color-mix(in srgb, var(--sun) 16%, var(--surface)), var(--surface) 60%); }
+.grade.expert .num { font-size: 34px; color: var(--sun); }
+.grade.secret { border-style: dashed; box-shadow: none; cursor: default; opacity: .85; }
+.grade.secret:hover { transform: none; border-color: var(--line); }
+.grade.secret .num { font-size: 34px; color: var(--muted); }
+.unlock { background: color-mix(in srgb, var(--sun) 20%, var(--surface)); border: 2px solid var(--sun); border-radius: 18px; padding: 14px 16px; display: grid; gap: 8px; }
+.unlock h3 { font-size: 22px; }
+.unlock p { margin: 0; }
+.code { font-family: ui-monospace, "Cascadia Mono", Menlo, monospace; font-size: 17px; background: var(--surface-2); border-left: 4px solid var(--river); border-radius: 10px; padding: 10px 14px; margin: 0 0 10px; white-space: pre; overflow-x: auto; }
+.visual th, .visual td { padding: 6px 14px; border-bottom: 1px solid var(--line); text-align: left; }
+.visual th { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.question { font-weight: 800; font-size: 19px; }
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.opt { text-align: left; padding: 12px 14px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); font-weight: 700; display: flex; gap: 10px; align-items: center; }
+.options.pics { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.options.pics .opt svg { display: block; max-width: 100%; height: auto; border-radius: 6px; }
+.opt .k { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-family: var(--f-display); font-weight: 800; }
+.opt.sel { border-color: var(--river); background: var(--river-soft); }
+.opt.sel .k { background: var(--river); color: var(--surface); }
+.answer-input { font: inherit; font-weight: 800; font-size: 22px; padding: 10px 16px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); width: 100%; max-width: 260px; text-transform: uppercase; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.btn { border: 0; border-radius: 16px; padding: 12px 22px; font-weight: 800; font-size: 17px; background: var(--river); color: #fff; box-shadow: 0 4px 0 color-mix(in srgb, var(--river) 60%, #000); transition: transform .1s ease, box-shadow .1s ease; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 color-mix(in srgb, var(--river) 60%, #000); }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn.green { background: var(--leaf); box-shadow: 0 4px 0 color-mix(in srgb, var(--leaf) 60%, #000); }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: none; border: 2px solid var(--line); }
+.back { background: none; border: 0; font-weight: 800; color: var(--muted); padding: 4px 0; display: inline-flex; gap: 6px; align-items: center; }
+.feedback { border-radius: 18px; padding: 14px 16px; display: grid; gap: 8px; }
+.feedback.ok { background: var(--leaf-soft); }
+.feedback.no { background: var(--bad-soft); }
+.feedback.info { background: var(--surface-2); }
+.feedback h3 { font-size: 22px; }
+.feedback.ok h3 { color: var(--leaf); }
+.feedback.no h3 { color: var(--bad); }
+.feedback p { margin: 0; }
+.big-stars { font-size: 30px; letter-spacing: 4px; color: var(--line); }
+.big-stars b { color: var(--sun); font-weight: 400; display: inline-block; animation: pop .5s ease both; }
+.big-stars b:nth-child(2) { animation-delay: .12s; } .big-stars b:nth-child(3) { animation-delay: .24s; }
+@keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.3); } 100% { transform: scale(1); } }
+.tries { font-size: 14px; color: var(--muted); font-weight: 700; }
+footer { margin-top: 36px; font-size: 13px; color: var(--muted); max-width: 70ch; }
+footer a { color: var(--river); }
+.reset { background: none; border: 0; color: var(--muted); text-decoration: underline; font-size: 13px; padding: 0; }
+.confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 14px; }
+.btn.finish { background: var(--wood); box-shadow: 0 4px 0 color-mix(in srgb, var(--wood) 60%, #000); padding: 8px 16px; font-size: 15px; }
+#modal { position: fixed; inset: 0; z-index: 20; background: color-mix(in srgb, var(--ink) 45%, transparent); display: grid; place-items: center; padding: 16px; }
+#modal[hidden] { display: none; }
+.m-card { background: var(--surface); border-radius: 24px; padding: 24px; max-width: 460px; width: 100%; display: grid; gap: 14px; box-shadow: var(--shadow); }
+.m-card h2 { font-size: 28px; }
+.m-card p { margin: 0; }
+.m-sum { background: var(--surface-2); border-radius: 16px; padding: 12px 14px; display: grid; gap: 4px; font-variant-numeric: tabular-nums; }
+#confetti { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+.shake { animation: shake .35s ease; }
+@keyframes shake { 0%,100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (max-width: 480px) { .station { width: 84px; } .log { width: 64px; height: 64px; font-size: 24px; } .stations::before { top: 44px; } .task { padding: 16px; } }
+</style>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="wrap">
+  <div class="bar">
+    <button class="brand" id="homeBtn" aria-label="Zpět na úvod">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="22" r="15" fill="var(--wood)"/><circle cx="9" cy="10" r="5" fill="var(--wood)"/><circle cx="31" cy="10" r="5" fill="var(--wood)"/><circle cx="14" cy="19" r="2.4" fill="var(--surface)"/><circle cx="26" cy="19" r="2.4" fill="var(--surface)"/><ellipse cx="20" cy="26" rx="5" ry="3.5" fill="var(--wood-soft)"/><rect x="17" y="28" width="6" height="5" rx="1" fill="var(--surface)"/></svg>
+      Bobří výprava
+    </button>
+    <div id="barRight" class="actions"></div>
+  </div>
+  <main id="app"></main>
+  <div id="modal" hidden role="dialog" aria-modal="true" aria-label="Odeslání výsledků"><div class="m-card"></div></div>
+  <footer>
+    Trénink na soutěž <a href="https://www.ibobr.cz" target="_blank" rel="noopener">Bobřík informatiky</a>.
+    Ukázkové úlohy v této verzi jsou vlastní, napsané ve stylu soutěže. Úlohy z archivu iBobr (© Bobřík informatiky, KI PF JČU) jsou šířené pod licencí
+    <a href="https://creativecommons.org/licenses/by-sa/3.0/cz/" target="_blank" rel="noopener">CC BY-SA 3.0 CZ</a>; tato stránka je pod stejnou licencí.
+    Postup se ukládá jen v tomto prohlížeči.
+    <div style="margin-top:8px" id="resetBox"></div>
+  </footer>
+</div>
+
+<script>
+/* =====================================================================
+   ÚLOHY – sem se doplňují další úlohy.
+   level: 1 = lehké, 2 = střední, 3 = těžké
+   type: "choice" (výběr), "number" (číslo), "text" (slovo)
+   answer: správná odpověď (u choice písmeno A–D, u text pole možností)
+   ===================================================================== */
+const GRADES = {
+  "4": { label: "4. třída", category: "Mini", blurb: "Úlohy z kategorie Mini (3.–4. třída)" },
+  "5": { label: "5. třída", category: "Benjamin", blurb: "Úlohy z kategorie Benjamin (5.–6. třída)" },
+  "x": { label: "Mistrovská výzva", category: "Expert", blurb: "Extra těžké úlohy pro ty, kdo zdolali celou třídu", secret: true }
+};
+/* Mistrovská výzva se otevře, když žák vyřeší všechny úlohy 4. nebo 5. třídy */
+function expertUnlocked() { return ["4", "5"].some(g => { const s = stats(g); return s.total > 0 && s.solved === s.total; }); }
+const LEVELS = [
+  { n: 1, name: "Potůček", note: "lehké úlohy" },
+  { n: 2, name: "Řeka", note: "střední úlohy" },
+  { n: 3, name: "Vodopád", note: "těžké úlohy" }
+];
+const TOPICS = {
+  vzory: "Vzory", logika: "Logika", sifry: "Šifry", algoritmy: "Algoritmy", data: "Data", grafy: "Cesty a grafy",
+  kodovani: "Kódování", site: "Sítě", bezpecnost: "Bezpečnost", programovani: "Programování", planovani: "Plánování", pocitac: "Práce s počítačem"
+};
+
+const TASKS = [
+  /* ---------- 4. třída (Mini) ---------- */
+  { id: "m-koralky", grade: "4", level: 1, topic: "vzory", title: "Korálky pro bobřici",
+    text: "<p>Bobřice Klára navléká korálky pořád podle stejného pravidla. Začátek náhrdelníku vidíš na obrázku.</p>",
+    visual: "beads",
+    question: "Jakou barvu bude mít 10. korálek?",
+    type: "choice", options: ["červenou", "modrou", "žlutou", "zelenou"], answer: "A",
+    hint: "Najdi skupinku korálků, která se pořád opakuje. Kolik korálků v ní je?",
+    explain: "Opakuje se trojice červená, modrá, modrá. Korálky 1, 4, 7 a 10 jsou vždy první v trojici, takže 10. korálek je červený. Hledání opakujícího se vzoru je základ informatického myšlení." },
+  { id: "m-klada", grade: "4", level: 1, topic: "logika", title: "Na kládě",
+    text: "<p>Ali, Bára a Cyril sedí vedle sebe na kládě.</p><p>Ali sedí úplně vlevo. Cyril nesedí vedle Aliho.</p>",
+    visual: "log3",
+    question: "Kdo sedí uprostřed?",
+    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], answer: "B",
+    hint: "Ali zabral levé místo. Kam se může posadit Cyril, aby nebyl vedle Aliho?",
+    explain: "Ali sedí vlevo. Prostřední místo je vedle Aliho, a tam Cyril sedět nesmí. Cyril tedy sedí vpravo a uprostřed zbývá Bára." },
+  { id: "m-sifra", grade: "4", level: 2, topic: "sifry", title: "Tajný vzkaz",
+    text: "<p>Bobři si posílají tajné vzkazy. Každé písmeno nahradí písmenem, které je v abecedě <b>hned za ním</b> (A → B, B → C, …).</p><p>Přišel vzkaz: <b style=\"font-family:var(--f-display);font-size:24px;letter-spacing:4px\">CPCS</b></p>",
+    visual: "alphabet",
+    question: "Jaké slovo bobr poslal?",
+    type: "text", answer: ["BOBR"],
+    hint: "Abys vzkaz rozluštil, posuň každé písmeno o jedno místo zpátky.",
+    explain: "C → B, P → O, C → B, S → R. Vzkaz zní BOBR. Takové šifře se říká Caesarova šifra: každé písmeno se posune o stejný počet míst." },
+  { id: "m-robot", grade: "4", level: 2, topic: "algoritmy", title: "Robot Bobík",
+    text: "<p>Robot Bobík stojí na startu (S). Dostane program:</p><p style=\"font-family:var(--f-display);font-size:26px;letter-spacing:6px\">↑ ↑ → → ↓</p><p>Každá šipka znamená jeden krok o jedno políčko daným směrem.</p>",
+    visual: "grid",
+    question: "Na kterém písmenu robot skončí?",
+    type: "choice", options: ["A", "B", "C", "D"], answer: "C",
+    hint: "Prstem jdi po mřížce krok za krokem. Nahoru, nahoru, doprava, doprava, dolů.",
+    explain: "Ze startu dva kroky nahoru, pak dva doprava a jeden dolů. Robot skončí na políčku C. Program je přesný seznam kroků, který robot provede jeden po druhém." },
+  { id: "m-razeni", grade: "4", level: 3, topic: "algoritmy", title: "Seřaďte se!",
+    text: "<p>Pět bobrů se má postavit do řady od nejmenšího (vlevo) po největšího (vpravo). Smí se ale jen <b>prohodit dva sousedé</b>, kteří stojí hned vedle sebe.</p>",
+    visual: "sort5",
+    question: "Kolik takových výměn je potřeba nejméně?",
+    type: "number", answer: 5,
+    hint: "U každého bobra spočítej, kolik menších bobrů stojí napravo od něj. Každý takový pár se musí jednou prohodit.",
+    explain: "Napravo od Oty stojí 3 menší bobři (Ivo, Ema, Lea), napravo od Maxe 2 menší (Ema, Lea). Ivo, Ema a Lea žádného menšího napravo nemají. Každá výměna sousedů opraví právě jeden takový pár, takže je potřeba 3 + 2 = 5 výměn." },
+  { id: "m-cesta", grade: "4", level: 3, topic: "grafy", title: "Nejkratší cesta k hrázi",
+    text: "<p>Bobr chce doplavat z rybníka <b>A</b> k hrázi <b>F</b>. Čísla u cest ukazují, kolik minut trvá cesta.</p>",
+    visual: "graph6",
+    question: "Kolik minut trvá nejrychlejší cesta z A do F?",
+    type: "number", answer: 8,
+    hint: "Ke každému rybníku si zapiš, za kolik nejméně minut se do něj dá doplavat. Do B je to rychleji oklikou přes C!",
+    explain: "Do C se dá doplavat za 1, do B přes C za 2, do D za 2 + 4 = 6, do E za 1 + 6 = 7. Do F to trvá 6 + 2 = 8 nebo 7 + 1 = 8 minut. Nejrychlejší cesta trvá 8 minut. Takhle hledají nejkratší cestu navigace v mobilu." },
+
+  /* ---------- 5. třída (Benjamin) ---------- */
+  { id: "b-cisla", grade: "5", level: 1, topic: "sifry", title: "Řeka v číslech",
+    text: "<p>Bobr nahradil každé písmeno jeho pořadím v abecedě bez háčků a čárek: A = 1, B = 2, C = 3, …</p><p>Jeho vzkaz: <b style=\"font-family:var(--f-display);font-size:24px;letter-spacing:2px\">18 – 5 – 11 – 1</b></p>",
+    visual: "alphabetNum",
+    question: "Jaké slovo bobr zapsal?",
+    type: "text", answer: ["REKA"],
+    hint: "Pomoz si tabulkou. Které písmeno je 18.?",
+    explain: "18 = R, 5 = E, 11 = K, 1 = A. Vzniklo slovo REKA (řeka). Převádět písmena na čísla musí každý počítač, protože si všechno ukládá jako čísla." },
+  { id: "b-strom", grade: "5", level: 1, topic: "algoritmy", title: "Rostoucí hráz",
+    text: "<p>Na začátku má hráz <b>1</b> kládu. Bobři pak čtyřikrát zopakují tento příkaz:</p><p style=\"font-family:var(--f-display);font-size:20px\">opakuj 4×: počet klád = počet klád × 2</p>",
+    visual: null,
+    question: "Kolik klád bude mít hráz na konci?",
+    type: "number", answer: 16,
+    hint: "Piš si to po krocích: 1 → 2 → …",
+    explain: "1 → 2 → 4 → 8 → 16. Příkaz „opakuj“ je cyklus a počet klád je proměnná, která se v každém kroku změní." },
+  { id: "b-tabulka", grade: "5", level: 2, topic: "data", title: "Bobří tabulka",
+    text: "<p>Ve kolonii žije šest bobrů. Tabulka ukazuje jejich věk a oblíbený strom.</p>",
+    visual: "table",
+    question: "Kolik bobrů je starších než 3 roky a zároveň má nejraději vrbu?",
+    type: "number", answer: 2,
+    hint: "Musí platit obě podmínky najednou. A pozor: 3 roky není „starší než 3“.",
+    explain: "Starší než 3 roky jsou Lili, Kuba a Ola. Z nich má vrbu ráda Lili a Ola, tedy 2 bobři. Sára má 3 roky, takže podmínku nesplňuje. Takhle se filtrují data v tabulkách a databázích." },
+  { id: "b-lampy", grade: "5", level: 2, topic: "data", title: "Signální lampy",
+    text: "<p>Bobři si čísla posílají čtyřmi lampami. Takto vypadají dvě čísla:</p>",
+    visual: "lamps",
+    question: "Jaké číslo ukazují lampy ● ● ○ ● ?",
+    type: "number", answer: 13,
+    hint: "Každá lampa má svou hodnotu. Zjisti ji z příkladů. Poslední lampa vpravo má hodnotu 1.",
+    explain: "Lampy mají zprava hodnoty 1, 2, 4 a 8. Rozsvícené jsou 8, 4 a 1, takže 8 + 4 + 1 = 13. Takto počítač zapisuje čísla ve dvojkové soustavě." },
+  { id: "b-hromada", grade: "5", level: 3, topic: "data", title: "Hromada klád",
+    text: "<p>Ke hrázi připlouvají klády s čísly <b>1, 2, 3, 4</b> přesně v tomto pořadí. Bobr každou připlutou kládu položí na hromadu. Kdykoliv mezitím může vzít kládu, která je <b>nahoře</b>, a odnést ji na hráz.</p><p>Například když položí 1, odnese ji, položí 2, položí 3, odnese 3, odnese 2, položí 4 a odnese 4, klády přijdou na hráz v pořadí 1 3 2 4.</p>",
+    visual: null,
+    question: "Které pořadí klád na hrázi bobr vytvořit NEDOKÁŽE?",
+    type: "choice", options: ["4 3 2 1", "2 1 4 3", "3 1 2 4", "1 2 3 4"], answer: "C",
+    hint: "Aby odnesl jako první kládu 3, musí na hromadu nejdřív položit 1 a 2. Která kláda je pak nahoře?",
+    explain: "Když bobr odnese kládu 3 jako první, leží na hromadě 2 na 1. Nahoře je 2, takže kládu 1 nemůže odnést dřív než 2. Pořadí 3 1 2 4 proto nejde. Ostatní pořadí vytvořit jde. Hromadě, ze které se bere jen shora, se říká zásobník." },
+  { id: "b-hadani", grade: "5", level: 3, topic: "algoritmy", title: "Hádej číslo",
+    text: "<p>Bobřice si myslí číslo od 1 do 1000. Bobr se ptá na čísla a ona odpovídá jen „víc“, „míň“ nebo „uhodl jsi“.</p>",
+    visual: null,
+    question: "Kolik otázek bobrovi vždycky stačí, když se ptá co nejchytřeji?",
+    type: "number", answer: 10,
+    hint: "Nejchytřejší je ptát se na číslo uprostřed. Kolikrát musíš 1000 půlit, než zbude jedno číslo?",
+    explain: "Když se bobr ptá vždy na prostřední číslo, každá odpověď vyřadí polovinu možností: 1000 → 500 → 250 → 125 → 63 → 32 → 16 → 8 → 4 → 2 → 1. Stačí tedy 10 otázek. Tomuto postupu se říká binární vyhledávání a díky němu počítač najde slovo v obřím slovníku za okamžik." },
+
+  /* ---------- 4. třída (Mini) – další úlohy ---------- */
+  { id: "m-obrazek", grade: "4", level: 1, topic: "kodovani", title: "Obrázek v kódu",
+    text: "<p>Bobr popisuje obrázek po řádcích. Bílé políčko zapíše jako <b>B</b>, černé jako <b>Č</b>. První řádek tak zapíše <b>B Č B Č B</b>.</p>",
+    visual: "pixels",
+    question: "Jak zapíše 4. řádek?",
+    type: "choice", options: ["Č B B B Č", "B Č B Č B", "B Č Č Č B", "B B Č B B"], answer: "C",
+    hint: "Najdi 4. řádek odshora a čti políčka zleva doprava.",
+    explain: "Ve 4. řádku je bílé, černé, černé, černé a bílé políčko: B Č Č Č B. Počítač si obrázek pamatuje přesně takhle, jako řadu malých políček (pixelů) zapsaných čísly nebo znaky." },
+  { id: "m-heslo", grade: "4", level: 1, topic: "bezpecnost", title: "Heslo k bobří noře",
+    text: "<p>Bobři si chtějí zamknout noru heslem, které nikdo neuhodne.</p>",
+    visual: null,
+    question: "Které heslo je nejbezpečnější?",
+    type: "choice", options: ["bobr", "12345", "Bobr2015", "Kláda-Mrkev-7-Vrba!"], answer: "D",
+    hint: "Které heslo by se zloději nejhůř hádalo? Je dlouhé a složené z různých věcí?",
+    explain: "Nejbezpečnější je dlouhé heslo z několika nesouvisejících slov, čísel a znaků. Slovo „bobr“, řadu 12345 nebo jméno s rokem uhodne zloděj nebo počítač velmi rychle." },
+  { id: "m-tanec", grade: "4", level: 2, topic: "programovani", title: "Bobří tanec",
+    text: "<p>Bobři tančí podle programu. Co je uvnitř příkazu <b>opakuj</b>, udělají tolikrát, kolikrát se píše.</p><div class=\"code\">opakuj 2×:\n    tleskni\n    opakuj 3×:\n        dupni</div>",
+    visual: null,
+    question: "Kolik zvuků (tlesknutí a dupnutí dohromady) bobři udělají?",
+    type: "number", answer: 8,
+    hint: "Kolik zvuků udělají v jednom kole? A kolik je kol?",
+    explain: "Jedno kolo je 1 tlesknutí a 3 dupnutí, tedy 4 zvuky. Kola jsou 2, takže 2 × 4 = 8 zvuků. Cyklus uvnitř cyklu se v programování používá velmi často." },
+  { id: "m-strom", grade: "4", level: 2, topic: "data", title: "Kam patří tučňák?",
+    text: "<p>Bobr třídí zvířata podle otázek. Začne nahoře a podle odpovědi „ano“ nebo „ne“ pokračuje dolů.</p>",
+    visual: "tree",
+    question: "Kam bobr pošle tučňáka? (Tučňák žije u vody, má peří a neumí létat.)",
+    type: "choice", options: ["Les", "Nora", "Hnízdo", "Břeh"], answer: "D",
+    hint: "Odpověz na první otázku za tučňáka a jdi po správné větvi.",
+    explain: "Žije u vody? Ano. Má peří? Ano. Umí létat? Ne. Tučňák skončí na břehu. Takovému schématu se říká rozhodovací strom a počítače ho používají třeba při třídění." },
+  { id: "m-vahy", grade: "4", level: 3, topic: "logika", title: "Nejlehčí kláda",
+    text: "<p>Bobr vážil pět klád A, B, C, D a E na vahách. Těžší kláda je vždy níž.</p>",
+    visual: "scales",
+    question: "Která kláda je druhá nejlehčí?",
+    type: "choice", options: ["A", "B", "D", "E"], answer: "B",
+    hint: "Seřaď všech pět klád od nejtěžší. Začni tou, která na žádných vahách nebyla lehčí.",
+    explain: "Z vah víme: A je těžší než B, C je těžší než A, B je těžší než D a E je těžší než C. Pořadí od nejtěžší je E, C, A, B, D. Nejlehčí je D a druhá nejlehčí B. Řadit věci jen podle porovnání dvojic musí umět každý řadicí algoritmus." },
+  { id: "m-zprava", grade: "4", level: 3, topic: "site", title: "Novina se šíří",
+    text: "<p>Bobři si předávají noviny. Každou minutu každý bobr, který novinu už zná, ji řekne všem bobrům, se kterými je spojený čarou.</p>",
+    visual: "net",
+    question: "Který bobr by měl novinu začít šířit, aby ji všichni znali co nejdřív?",
+    type: "choice", options: ["A", "B", "D", "E"], answer: "C",
+    hint: "Vyzkoušej to pro každého bobra. Za kolik minut se novina dostane k tomu nejvzdálenějšímu?",
+    explain: "Když začne D, za 1 minutu ji znají B, C a E a za 2 minuty i A a F. Od B, C nebo E to trvá 3 minuty a od A nebo F dokonce 4. Nejlepší je bobr D, který je „uprostřed“ sítě. Proto se důležité servery staví tam, odkud to mají všichni blízko." },
+
+  /* ---------- 5. třída (Benjamin) – další úlohy ---------- */
+  { id: "b-komprese", grade: "5", level: 1, topic: "kodovani", title: "Zkrácený obrázek",
+    text: "<p>Bobr šetří místo. Řádek obrázku nepíše po políčkách, ale napíše, <b>kolik políček stejné barvy jde za sebou</b>. Vždy začíná bílou a barvy se střídají.</p><p>Například kód <b>1, 3, 1</b> znamená: 1 bílé, 3 černé, 1 bílé, tedy <b>B Č Č Č B</b>.</p>",
+    visual: null,
+    question: "Který řádek odpovídá kódu 2, 1, 2?",
+    type: "choice", options: ["B Č Č B B", "B B Č B B", "Č Č B Č Č", "B B B Č B"], answer: "B",
+    hint: "Začni bílou: nejdřív 2 bílá políčka, pak 1 černé, pak…",
+    explain: "2 bílá, 1 černé, 2 bílá: B B Č B B. Takovému zkracování se říká komprese. Díky ní zabírají obrázky v počítači méně místa." },
+  { id: "b-podvod", grade: "5", level: 1, topic: "bezpecnost", title: "Podezřelá zpráva",
+    text: "<p>Bobrovi přišla zpráva: <i>„Gratulujeme! Vyhrál jsi tablet. Pošli nám své heslo a adresu a tablet ti hned pošleme.“</i></p>",
+    visual: null,
+    question: "Co by měl bobr udělat?",
+    type: "choice", options: ["Poslat heslo, ať tablet rychle přijde", "Poslat jen adresu, heslo ne", "Nic neposílat a ukázat zprávu dospělému", "Přeposlat zprávu kamarádům, ať taky vyhrají"], answer: "C",
+    hint: "Kdo by měl znát tvoje heslo? A dávají opravdu cizí lidé tablety zadarmo?",
+    explain: "Je to podvodná zpráva (phishing). Heslo nikdy nikomu neposíláme a nesdílíme ani adresu. Nejlepší je zprávu neotvírat dál a ukázat ji dospělému." },
+  { id: "b-robot", grade: "5", level: 2, topic: "programovani", title: "Robot se otáčí",
+    text: "<p>Robot Bobík stojí na startu (S) a dívá se <b>nahoru</b>. „Krok“ znamená jedno políčko dopředu, tam kam se dívá. „Vpravo“ znamená otočit se na místě doprava.</p><div class=\"code\">opakuj 2×:\n    krok\n    krok\n    vpravo</div>",
+    visual: "grid2",
+    question: "Na kterém písmenu robot skončí?",
+    type: "choice", options: ["A", "B", "C", "D"], answer: "B",
+    hint: "Po prvním otočení se robot dívá doprava. Kam vedou další dva kroky?",
+    explain: "Dva kroky nahoru, otočení doprava, dva kroky doprava a znovu otočení. Robot stojí na B. Otočení robota nikam neposune, změní jen směr dalších kroků." },
+  { id: "b-razeni", grade: "5", level: 2, topic: "algoritmy", title: "Řazení kartiček",
+    text: "<p>Bobr řadí kartičky <b>7, 9, 3, 2, 5</b> takto: v každém kole najde nejmenší číslo mezi kartičkami, které ještě nejsou hotové, a <b>prohodí ho</b> s první nehotovou kartičkou.</p>",
+    visual: null,
+    question: "Jak budou kartičky ležet po 2 kolech?",
+    type: "choice", options: ["2 3 5 7 9", "2 9 3 7 5", "2 3 7 9 5", "2 3 9 7 5"], answer: "D",
+    hint: "1. kolo: nejmenší je 2, prohodí se se 7. Jak vypadá řada? A co ve 2. kole?",
+    explain: "1. kolo: 2 se prohodí se 7 → 2 9 3 7 5. 2. kolo: nejmenší ze zbytku je 3, prohodí se s 9 → 2 3 9 7 5. Celé seřazené to ještě není. Tomuto postupu se říká řazení výběrem." },
+  { id: "b-parita", grade: "5", level: 3, topic: "kodovani", title: "Rozbitá lampa",
+    text: "<p>Bobři posílají pole lamp. Poslední sloupec a poslední řádek jsou kontrolní: lampy jsou nastavené tak, aby v každém řádku i sloupci svítil <b>sudý počet</b> lamp (0, 2, 4…).</p><p>Při přenosu se jedna lampa pokazila a přepnula.</p>",
+    visual: "parity",
+    question: "Která lampa je pokažená?",
+    type: "choice", options: ["A1", "B2", "C3", "B3"], answer: "B",
+    hint: "Spočítej rozsvícené lampy v každém řádku a sloupci. Kde je lichý počet?",
+    explain: "Lichý počet svítících lamp je jen v řádku 2 a ve sloupci B. Chyba je tedy na jejich křížení, v B2. Kontrolní (paritní) bity používají počítače, aby poznaly a opravily chyby při přenosu dat." },
+  { id: "b-kanaly", grade: "5", level: 3, topic: "grafy", title: "Kanály mezi rybníky",
+    text: "<p>Bobři chtějí propojit všech šest rybníků kanály, aby se dalo doplavat odkudkoliv kamkoliv (klidně oklikou). Čísla ukazují, kolik práce stojí vykopat každý kanál. Nemusí kopat všechny.</p>",
+    visual: "canals",
+    question: "Kolik práce nejméně stačí na propojení všech rybníků?",
+    type: "number", answer: 11,
+    hint: "Vybírej kanály od nejlevnějšího. Kanál přeskoč, když spojuje rybníky, mezi kterými už cesta vede.",
+    explain: "Bobři vykopou B–C (1), C–D (2), E–F (2), A–B (3) a D–E (3), dohromady 11. Kanál B–D (4) už není potřeba, protože B a D jsou spojené přes C. Takhle se plánují elektrické nebo internetové sítě, aby byly co nejlevnější." },
+
+  /* ---------- Práce s počítačem – 4. třída ---------- */
+  { id: "m-pripona", grade: "4", level: 1, topic: "pocitac", title: "Co je v souboru?",
+    text: "<p>Bobr má ve složce čtyři soubory. Konec názvu za tečkou (přípona) prozrazuje, co v souboru je.</p>",
+    visual: null,
+    question: "Ve kterém souboru je nejspíš fotka?",
+    type: "choice", options: ["dopis.docx", "vylet.jpg", "pisnicka.mp3", "hra.exe"], answer: "B",
+    hint: "Které z přípon jsi už viděl u obrázků z mobilu nebo foťáku?",
+    explain: "Přípona .jpg patří fotkám a obrázkům. .docx je dokument z textového editoru, .mp3 je hudba a .exe je program, který se dá spustit. Podle přípony počítač pozná, kterým programem soubor otevřít." },
+  { id: "m-plechovka", grade: "4", level: 2, topic: "pocitac", title: "Vybarvi domeček",
+    text: "<p>Bobřice nakreslila v grafickém editoru domeček. Jednu čáru ale nedotáhla. Pak vybrala nástroj <b>Plechovka</b>, modrou barvu a klikla tam, kde je na obrázku šipka.</p><p>Plechovka vybarví místo, kam klikneš, a rozleje se všude, kam se dostane bez překročení čáry.</p>",
+    visual: "house4",
+    question: "Jak bude obrázek vypadat?",
+    type: "choice", optionsVisual: "house4opts", options: ["", "", "", ""], answer: "B",
+    hint: "Podívej se pozorně na levou stěnu domečku. Kudy může barva utéct?",
+    explain: "Levá stěna má mezeru, takže barva vyteče z domečku ven a vybarví i celé okolí. Střecha a okno jsou úplně uzavřené čárou, a proto zůstanou bílé." },
+  { id: "m-zarizeni", grade: "4", level: 2, topic: "pocitac", title: "Co jde do počítače?",
+    text: "<p>Některá zařízení posílají informace <b>do</b> počítače (vstupní), jiná je z počítače ukazují nebo přehrávají (výstupní).</p><p><b>klávesnice, myš, monitor, mikrofon, tiskárna, webkamera, reproduktory</b></p>",
+    visual: null,
+    question: "Kolik z těchto zařízení je vstupních?",
+    type: "number", answer: 4,
+    hint: "U každého zařízení si řekni: posílám tím něco počítači, nebo mi počítač něco ukazuje?",
+    explain: "Vstupní jsou klávesnice, myš, mikrofon a webkamera, celkem 4. Monitor, tiskárna a reproduktory jsou výstupní, protože nám ukazují nebo přehrávají, co počítač vytvořil." },
+  { id: "m-schranka", grade: "4", level: 3, topic: "pocitac", title: "Kopírovat a vložit",
+    text: "<p>V textovém editoru je napsáno <b>BOBR</b>. Bobr udělá postupně tohle:</p><ol><li>Označí <b>BO</b> a dá <b>Kopírovat</b> (Ctrl+C).</li><li>Klikne na konec textu a dá <b>Vložit</b> (Ctrl+V).</li><li>Označí úplně první písmeno <b>B</b> a dá <b>Vyjmout</b> (Ctrl+X).</li><li>Klikne na konec textu a dá dvakrát <b>Vložit</b>.</li></ol>",
+    visual: null,
+    question: "Co je teď v editoru napsáno?",
+    type: "text", answer: ["OBRBOBB"],
+    hint: "Vyjmout text smaže a uloží si ho. Co si teď editor pamatuje: BO, nebo B?",
+    explain: "Po kroku 2 je napsáno BOBRBO. Vyjmutím prvního B vznikne OBRBO a schránka si teď pamatuje B (původní BO zapomněla). Dvojí vložení přidá BB, takže výsledek je OBRBOBB. Schránka si pamatuje vždy jen to poslední, co jsi zkopíroval nebo vyjmul." },
+
+  /* ---------- Práce s počítačem – 5. třída ---------- */
+  { id: "b-slozky", grade: "5", level: 1, topic: "pocitac", title: "Kde je diktát?",
+    text: "<p>Takhle má bobr uložené složky a soubory v počítači.</p>",
+    visual: "folders",
+    question: "Jak zní cesta k souboru diktat.txt?",
+    type: "choice", options: ["Dokumenty/Čeština/diktat.txt", "Dokumenty/Škola/Čeština/diktat.txt", "Škola/Dokumenty/Čeština/diktat.txt", "Dokumenty/Škola/Matika/diktat.txt"], answer: "B",
+    hint: "Začni nahoře u složky Dokumenty a jdi dolů ke složce, ve které diktát leží.",
+    explain: "Soubor leží ve složce Čeština, ta je ve složce Škola a ta ve složce Dokumenty. Cesta se píše od největší složky k souboru: Dokumenty/Škola/Čeština/diktat.txt." },
+  { id: "b-plechovka", grade: "5", level: 2, topic: "pocitac", title: "Plechovka venku",
+    text: "<p>Bobr nakreslil domeček a u střechy nedotáhl čáru. Pak vybral nástroj <b>Plechovka</b>, modrou barvu a klikl tam, kde je na obrázku šipka.</p><p>Plechovka vybarví místo, kam klikneš, a rozleje se všude, kam se dostane bez překročení čáry.</p>",
+    visual: "house5",
+    question: "Jak bude obrázek vypadat?",
+    type: "choice", optionsVisual: "house5opts", options: ["", "", "", ""], answer: "D",
+    hint: "Bobr klikl venku. Do kterých uzavřených částí domečku se barva může dostat?",
+    explain: "Barva vyplní okolí. Ve špičce střechy je mezera, takže barva nateče i do střechy. Spodní část domečku i okno jsou uzavřené, a proto zůstanou bílé." },
+  { id: "b-velikost", grade: "5", level: 2, topic: "pocitac", title: "Plná fleška",
+    text: "<p>Jedna fotka z bobrova mobilu má velikost asi <b>3 MB</b> (megabajty). Na flešce zbývá volné místo <b>1 GB</b> (gigabajt). 1 GB je přibližně 1000 MB.</p>",
+    visual: null,
+    question: "Kolik fotek se na flešku zhruba vejde?",
+    type: "choice", options: ["asi 3", "asi 33", "asi 333", "asi 3000"], answer: "C",
+    hint: "Kolikrát se 3 vejdou do 1000?",
+    explain: "1000 : 3 je asi 333, takže se vejde přibližně 333 fotek. Velikost dat se měří v bajtech. Kilobajt (kB) je asi tisíc bajtů, megabajt (MB) asi tisíc kilobajtů a gigabajt (GB) asi tisíc megabajtů." },
+  { id: "b-zpet", grade: "5", level: 3, topic: "pocitac", title: "Zpět a znovu",
+    text: "<p>V prázdném editoru bobr postupně:</p><ol><li>napíše A</li><li>napíše B</li><li>napíše C</li><li>dá <b>Zpět</b> (Ctrl+Z)</li><li>dá <b>Zpět</b> (Ctrl+Z)</li><li>napíše D</li><li>dá <b>Znovu</b> (Ctrl+Y)</li><li>dá <b>Zpět</b> (Ctrl+Z)</li></ol><p>Každé napsané písmeno je jeden krok. Zpět vrátí poslední krok, Znovu zopakuje krok, který jsi naposledy vrátil.</p>",
+    visual: null,
+    question: "Co je na konci v editoru napsáno?",
+    type: "text", answer: ["A"],
+    hint: "Pozor na krok 6: když po vracení napíšeš něco nového, editor zapomene, co šlo vrátit zpátky.",
+    explain: "Po krocích 1 až 3 je napsáno ABC. Dvakrát Zpět dá A. Napsáním D vznikne AD a editor zapomene vrácené kroky B a C, takže Znovu nic neudělá. Poslední Zpět vrátí D a zbude jen A. Editor si kroky pamatuje jako hromádku (zásobník)." },
+
+  /* ---------- Mistrovská výzva (extra těžké) ---------- */
+  { id: "x-sifra", grade: "x", level: 1, topic: "sifry", title: "Šifra, která roste",
+    text: "<p>Chytřejší bobr posouvá každé písmeno o jiný počet míst dopředu: <b>1. písmeno o 1</b>, 2. o 2, 3. o 3, 4. o 4. Když dojde na konec abecedy, pokračuje znovu od A (… Y, Z, A, B …).</p><p>Zašifrované slovo: <b style=\"font-family:var(--f-display);font-size:24px;letter-spacing:4px\">ITDD</b></p>",
+    visual: "alphabet",
+    question: "Jaké slovo bobr zašifroval?",
+    type: "text", answer: ["HRAZ"],
+    hint: "Posouvej zpátky: 1. písmeno o 1, 2. o 2… U posledního písmena se přes A dostaneš na konec abecedy.",
+    explain: "I − 1 = H, T − 2 = R, D − 3 = A a D − 4 = Z (D, C, B, A, Z). Slovo je HRÁZ. Když se posun mění, šifra se luští mnohem hůř než obyčejná Caesarova." },
+  { id: "x-lampy", grade: "x", level: 1, topic: "data", title: "Pět lamp",
+    text: "<p>Bobři mají pět lamp. Zleva mají hodnoty <b>16, 8, 4, 2, 1</b>. Číslo se ukáže tak, že se sečtou hodnoty rozsvícených lamp (● svítí, ○ nesvítí).</p>",
+    visual: null,
+    question: "Jak ukážou číslo 22?",
+    type: "choice", options: ["● ● ○ ● ○", "○ ● ● ● ○", "● ○ ● ● ○", "● ○ ● ○ ●"], answer: "C",
+    hint: "Začni největší lampou, která se do 22 vejde. Kolik pak zbývá?",
+    explain: "22 = 16 + 4 + 2, svítí tedy 1., 3. a 4. lampa: ● ○ ● ● ○. Ostatní možnosti dávají 26, 14 a 21. Takhle zapisuje čísla počítač ve dvojkové soustavě." },
+  { id: "x-lhari", grade: "x", level: 1, topic: "logika", title: "Kdo lže?",
+    text: "<p>Jeden ze tří bobrů vždycky lže, další dva vždycky mluví pravdu.</p><p><b>Ali:</b> „Bára lže.“<br><b>Bára:</b> „Cyril lže.“<br><b>Cyril:</b> „Já nelžu.“</p>",
+    visual: null,
+    question: "Kdo je lhář?",
+    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], answer: "B",
+    hint: "Zkus postupně předpokládat, že lže Ali, pak Bára, pak Cyril. Kdy vyjde právě jeden lhář?",
+    explain: "Když lže Ali, Bára mluví pravdu, takže lže i Cyril. To by byli dva lháři. Když lže Cyril, má pravdu Bára, a pak lže i Ali. Zase dva. Jen když lže Bára, všechno sedí: Ali mluví pravdu a Cyril nelže. Zkoušení všech možností je důležitá informatická strategie." },
+  { id: "x-cesty", grade: "x", level: 1, topic: "grafy", title: "Kolik je cest?",
+    text: "<p>Bobr jde z levého horního políčka (S) do pravého dolního (H). Smí chodit jen <b>doprava</b> nebo <b>dolů</b>, vždy o jedno políčko.</p>",
+    visual: "paths",
+    question: "Kolik různých cest může bobr jít?",
+    type: "number", answer: 6,
+    hint: "Napiš do každého políčka, kolika cestami se do něj dá dojít. Do políčka vedou cesty zleva a shora.",
+    explain: "Do políček v horním řádku i levém sloupci vede jen 1 cesta. Do každého dalšího políčka vede součet cest zleva a shora: 2, 3, 3 a nakonec 3 + 3 = 6. Sčítání menších výsledků do většího se v informatice říká dynamické programování." },
+  { id: "x-kruh", grade: "x", level: 2, topic: "algoritmy", title: "Bobří kruh",
+    text: "<p>Šest bobrů stojí v kruhu, očíslovaných 1 až 6. Bobr 1 začne počítat: „jedna“, bobr 2 „dva“. Kdo řekne „dva“, vystoupí z kruhu. Další bobr začne znovu „jedna“ a tak dál dokola, dokud nezbude jediný.</p>",
+    visual: "circle",
+    question: "Který bobr zůstane v kruhu poslední?",
+    type: "number", answer: 5,
+    hint: "Vystupují 2, 4, 6… Kdo začíná počítat po bobrovi 6? Nezapomeň, že kruh se stále zmenšuje.",
+    explain: "Postupně vystoupí 2, 4, 6, pak 3 a nakonec 1. Zůstane bobr 5. Tomu se říká Josefova úloha a dá se řešit i simulací krok za krokem, přesně jako to dělá počítač." },
+  { id: "x-promenne", grade: "x", level: 2, topic: "programovani", title: "Prohození",
+    text: "<p>V programu jsou dvě krabičky (proměnné) <b>a</b> a <b>b</b>. Příkazy se provedou postupně shora dolů.</p><div class=\"code\">a = 3\nb = 5\na = a + b\nb = a − b\na = a − b</div>",
+    visual: null,
+    question: "Co je na konci v krabičkách a a b?",
+    type: "choice", options: ["a = 3, b = 5", "a = 5, b = 3", "a = 8, b = 3", "a = 8, b = 5"], answer: "B",
+    hint: "Po každém řádku si zapiš, co je v krabičkách. Po 3. řádku je a = 8.",
+    explain: "a = 8, pak b = 8 − 5 = 3, pak a = 8 − 3 = 5. Hodnoty se prohodily: a = 5, b = 3. Je to chytrý trik, jak prohodit dvě čísla bez třetí krabičky." },
+  { id: "x-barvy", grade: "x", level: 2, topic: "grafy", title: "Barevná hnízda",
+    text: "<p>Bobři chtějí natřít hnízda A až E. Hnízda spojená čarou jsou sousedé a nesmí mít stejnou barvu.</p>",
+    visual: "coloring",
+    question: "Kolik nejméně barev potřebují?",
+    type: "number", answer: 3,
+    hint: "A, B a C jsou spojené každé s každým. Stačí jim dvě barvy? A dokážeš pak s těmi samými barvami natřít D a E?",
+    explain: "A, B a C tvoří trojúhelník, takže potřebují 3 různé barvy. Víc není potřeba: D může mít barvu jako A a E barvu jako B. Barvení grafu se používá třeba při plánování rozvrhu, aby se nic nepřekrývalo." },
+  { id: "x-vazeni", grade: "x", level: 2, topic: "algoritmy", title: "Těžší kláda",
+    text: "<p>Bobr má 9 klád, které vypadají úplně stejně. Jedna je ale o trochu těžší. Má rovnoramenné váhy bez závaží: na každou misku může položit libovolný počet klád a váhy ukážou, která strana je těžší, nebo že jsou v rovnováze.</p>",
+    visual: null,
+    question: "Kolik vážení mu jistě stačí, aby těžší kládu našel?",
+    type: "choice", options: ["1", "2", "3", "4"], answer: "B",
+    hint: "Nedávej klády na váhy po jedné. Co když je rozdělíš na tři hromádky po třech?",
+    explain: "Rozdělí klády na trojice a dvě z nich zváží. Podle toho ví, ve které trojici je těžší kláda. Z té trojice zváží dvě klády a zase ví, která je těžší (nebo že je to ta třetí). Stačí 2 vážení. Každé vážení dělí možnosti na třetiny." },
+  { id: "x-dijkstra", grade: "x", level: 3, topic: "grafy", title: "Cesta přes bažinu",
+    text: "<p>Bobr chce co nejrychleji ze startu <b>S</b> do cíle <b>T</b>. Čísla u cest jsou minuty.</p>",
+    visual: "swamp",
+    question: "Kolik minut trvá nejrychlejší cesta z S do T?",
+    type: "number", answer: 12,
+    hint: "Ke každému místu si zapiš, za kolik nejméně minut se do něj dá dojít. Pozor: do A je to rychleji přes B.",
+    explain: "Nejrychleji: S → B (2) → A (1) → C (5) → D (2) → T (2), dohromady 12 minut. Přímá cesta S → A trvá 4, ale přes B jen 3. Tento postup používá Dijkstrův algoritmus v navigacích." },
+  { id: "x-rekurze", grade: "x", level: 3, topic: "programovani", title: "Hráz sama sebe",
+    text: "<p>Bobr má návod <b>postav(n)</b>. Když je n = 0, nedělá nic. Jinak udělá tohle:</p><div class=\"code\">postav(n):\n    polož 1 kládu\n    postav(n − 1)\n    postav(n − 1)</div>",
+    visual: null,
+    question: "Kolik klád položí příkaz postav(3)?",
+    type: "number", answer: 7,
+    hint: "Začni od malých čísel: postav(1) položí 1 kládu. Kolik položí postav(2)?",
+    explain: "postav(1) = 1 kláda. postav(2) = 1 + 1 + 1 = 3. postav(3) = 1 + 3 + 3 = 7. Návodu, který volá sám sebe, se říká rekurze." },
+  { id: "x-domky", grade: "x", level: 3, topic: "logika", title: "Tři hráze",
+    text: "<p>Ali, Bára a Cyril bydlí ve třech hrázích vedle sebe. Každá hráz má jinou barvu: červenou, modrou nebo zelenou.</p><ul><li>Červená hráz je hned vlevo od modré.</li><li>Ali bydlí uprostřed.</li><li>Bára bydlí v zelené hrázi.</li><li>Cyril nebydlí v červené hrázi.</li></ul>",
+    visual: null,
+    question: "Kdo bydlí v modré hrázi?",
+    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], answer: "C",
+    hint: "Červená a modrá jsou vedle sebe, takže jsou buď vlevo a uprostřed, nebo uprostřed a vpravo. Vyzkoušej obě možnosti.",
+    explain: "Kdyby byla červená vlevo a modrá uprostřed, zelená by byla vpravo s Bárou, Ali by byl v modré a Cyril v červené. To nejde. Platí tedy zelená, červená, modrá: Bára vlevo, Ali uprostřed v červené a Cyril vpravo v modré." },
+  { id: "x-planovani", grade: "x", level: 3, topic: "planovani", title: "Stavba za jeden den",
+    text: "<p>Bobří parta staví hráz. Bobrů je dost, takže úkoly, které na sobě nezávisí, mohou dělat zároveň.</p><table class=\"plan\"><tr><td><b>A</b> pokácet strom</td><td>3 h</td><td></td></tr><tr><td><b>B</b> dovléct kmeny</td><td>2 h</td><td>až po A</td></tr><tr><td><b>C</b> nanosit bláto</td><td>4 h</td><td></td></tr><tr><td><b>D</b> postavit hráz</td><td>2 h</td><td>až po B a C</td></tr></table>",
+    visual: null,
+    question: "Za kolik hodin nejdřív může být hráz hotová?",
+    type: "number", answer: 7,
+    hint: "Kdy nejdřív může začít úkol D? Musí počkat na B i na C.",
+    explain: "A a B zaberou 3 + 2 = 5 hodin, C mezitím zabere 4 hodiny. D může začít až po 5 hodinách a trvá 2, takže hotovo je za 7 hodin. Nejdelšímu řetězci úkolů se říká kritická cesta." }
+];
+
+/* =====================================================================
+   OBRÁZKY K ÚLOHÁM
+   ===================================================================== */
+const C = { r: "#D9533B", b: "#2C88B0", y: "#E9A72B", g: "#2F8A50" };
+const VISUALS = {
+  beads() {
+    const seq = ["r","b","b","r","b","b","r","b"];
+    let s = `<svg viewBox="0 0 520 90" width="520" role="img" aria-label="Korálky: červená, modrá, modrá, červená, modrá, modrá, červená, modrá, dál otazník">`;
+    s += `<path d="M10 45 H510" stroke="var(--muted)" stroke-width="3"/>`;
+    seq.forEach((c, i) => { const x = 34 + i * 52; s += `<circle cx="${x}" cy="45" r="21" fill="${C[c]}" stroke="var(--ink)" stroke-width="2"/><text x="${x}" y="84" text-anchor="middle" font-size="13" fill="var(--muted)" font-weight="700">${i+1}</text>`; });
+    s += `<circle cx="450" cy="45" r="21" fill="var(--surface)" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/><text x="450" y="53" text-anchor="middle" font-size="24" font-weight="800" fill="var(--ink)">?</text><text x="490" y="53" font-size="22" fill="var(--muted)">…</text></svg>`;
+    return s;
+  },
+  log3() {
+    let s = `<svg viewBox="0 0 420 150" width="420" role="img" aria-label="Kláda se třemi místy: vlevo, uprostřed, vpravo">`;
+    s += `<rect x="20" y="95" width="380" height="36" rx="18" fill="var(--wood)"/><ellipse cx="38" cy="113" rx="14" ry="18" fill="var(--wood-soft)" stroke="var(--wood)" stroke-width="3"/>`;
+    ["vlevo","uprostřed","vpravo"].forEach((t, i) => { const x = 90 + i * 120;
+      s += `<circle cx="${x}" cy="62" r="28" fill="var(--surface)" stroke="var(--wood)" stroke-width="3" stroke-dasharray="6 5"/><text x="${x}" y="72" text-anchor="middle" font-size="28" font-weight="800" fill="var(--muted)">?</text><text x="${x}" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)">${t}</text>`; });
+    return s + `</svg>`;
+  },
+  alphabet() {
+    const L = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let s = `<svg viewBox="0 0 530 70" width="530" role="img" aria-label="Abeceda od A do Z">`;
+    L.forEach((ch, i) => { const x = 12 + i * 20; s += `<text x="${x}" y="40" font-size="17" font-weight="800" fill="var(--ink)" text-anchor="middle">${ch}</text>`; });
+    return s + `<text x="265" y="64" text-anchor="middle" font-size="12" fill="var(--muted)">abeceda bez háčků a čárek</text></svg>`;
+  },
+  alphabetNum() {
+    const L = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let s = `<svg viewBox="0 0 540 110" width="540" role="img" aria-label="Tabulka písmen A až Z s čísly 1 až 26">`;
+    L.forEach((ch, i) => { const row = i < 13 ? 0 : 1, col = i % 13, x = 22 + col * 40, y = 30 + row * 52;
+      s += `<text x="${x}" y="${y}" font-size="18" font-weight="800" fill="var(--ink)" text-anchor="middle">${ch}</text><text x="${x}" y="${y+20}" font-size="13" fill="var(--muted)" text-anchor="middle">${i+1}</text>`; });
+    return s + `</svg>`;
+  },
+  grid() {
+    const n = 5, sz = 56, o = 20;
+    let s = `<svg viewBox="0 0 320 320" width="320" role="img" aria-label="Mřížka 5 na 5, start vlevo dole, písmena A až D">`;
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) s += `<rect x="${o+c*sz}" y="${o+r*sz}" width="${sz}" height="${sz}" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>`;
+    const put = (c, r, t, fill, col) => `<circle cx="${o+c*sz+sz/2}" cy="${o+r*sz+sz/2}" r="20" fill="${fill}"/><text x="${o+c*sz+sz/2}" y="${o+r*sz+sz/2+8}" text-anchor="middle" font-size="22" font-weight="800" fill="${col}">${t}</text>`;
+    s += put(0, 4, "S", "var(--wood)", "var(--surface)");
+    [["A",3,2],["B",2,1],["C",2,3],["D",1,3]].forEach(([t,c,r]) => s += put(c, r, t, "var(--river-soft)", "var(--river)"));
+    return s + `</svg>`;
+  },
+  sort() {
+    const bob = [["Ota", 120], ["Ivo", 60], ["Ema", 90]];
+    let s = `<svg viewBox="0 0 360 200" width="360" role="img" aria-label="Bobři v řadě: Ota velký, Ivo malý, Ema střední">`;
+    s += `<line x1="10" y1="160" x2="350" y2="160" stroke="var(--muted)" stroke-width="2"/>`;
+    bob.forEach(([n, h], i) => { const x = 60 + i * 120;
+      s += `<rect x="${x-26}" y="${160-h}" width="52" height="${h}" rx="22" fill="var(--wood)"/><circle cx="${x-10}" cy="${160-h+20}" r="4" fill="var(--surface)"/><circle cx="${x+10}" cy="${160-h+20}" r="4" fill="var(--surface)"/><text x="${x}" y="186" text-anchor="middle" font-size="16" font-weight="800" fill="var(--ink)">${n}</text>`; });
+    return s + `</svg>`;
+  },
+  graph() {
+    const P = { A: [50, 110], B: [190, 35], C: [190, 185], D: [330, 110] };
+    const E = [["A","B",2],["A","C",3],["B","D",4],["C","D",2],["B","C",1]];
+    let s = `<svg viewBox="0 0 380 220" width="380" role="img" aria-label="Rybníky A, B, C, D spojené cestami: A–B 2, A–C 3, B–D 4, C–D 2, B–C 1">`;
+    E.forEach(([a, b, w]) => { const [x1,y1] = P[a], [x2,y2] = P[b], mx = (x1+x2)/2, my = (y1+y2)/2;
+      s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--river)" stroke-width="6" stroke-linecap="round"/><circle cx="${mx}" cy="${my}" r="14" fill="var(--surface)" stroke="var(--river)" stroke-width="2"/><text x="${mx}" y="${my+6}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--ink)">${w}</text>`; });
+    Object.entries(P).forEach(([k,[x,y]]) => s += `<circle cx="${x}" cy="${y}" r="24" fill="${k==="D" ? "var(--wood)" : "var(--river-soft)"}" stroke="var(--river)" stroke-width="3"/><text x="${x}" y="${y+8}" text-anchor="middle" font-size="22" font-weight="800" fill="${k==="D" ? "var(--surface)" : "var(--river)"}">${k}</text>`);
+    return s + `</svg>`;
+  },
+  table() {
+    const rows = [["Tom",2,"vrba"],["Lili",4,"vrba"],["Kuba",5,"bříza"],["Sára",3,"vrba"],["Ola",6,"vrba"],["Jan",1,"olše"]];
+    return `<table><thead><tr><th>Jméno</th><th>Věk (roky)</th><th>Oblíbený strom</th></tr></thead><tbody>${rows.map(r => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}</tbody></table>`;
+  },
+  lamps() {
+    const row = (y, on, label) => { let s = ""; on.forEach((v, i) => { const x = 40 + i * 54;
+      s += `<circle cx="${x}" cy="${y}" r="20" fill="${v ? "var(--sun)" : "var(--surface)"}" stroke="var(--ink)" stroke-width="2"/>`; });
+      return s + `<text x="250" y="${y+8}" font-size="22" font-weight="800" fill="var(--ink)">= ${label}</text>`; };
+    return `<svg viewBox="0 0 330 140" width="330" role="img" aria-label="Lampy: zhasnuto, zhasnuto, svítí, svítí je 3. Svítí, zhasnuto, zhasnuto, zhasnuto je 8.">${row(36,[0,0,1,1],"3")}${row(104,[1,0,0,0],"8")}</svg>`;
+  },
+  stack() {
+    let s = `<svg viewBox="0 0 220 130" width="220" role="img" aria-label="Hromada klád položených na sobě">`;
+    ["A","B","C"].forEach((t, i) => { const y = 100 - i * 32;
+      s += `<rect x="40" y="${y}" width="140" height="26" rx="13" fill="var(--wood)"/><ellipse cx="52" cy="${y+13}" rx="9" ry="12" fill="var(--wood-soft)"/><text x="115" y="${y+19}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--surface)">${t}</text>`; });
+    return s + `<text x="200" y="50" font-size="12" fill="var(--muted)" text-anchor="end">po kroku 1</text></svg>`;
+  },
+  grid2() { return drawGrid([["A",2,0],["B",2,2],["C",1,2],["D",2,3]]); },
+  paths() {
+    const sz = 70, o = 20;
+    let s = `<svg viewBox="0 0 250 250" width="250" role="img" aria-label="Mřížka 3 na 3 políčka, S vlevo nahoře, H vpravo dole">`;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) s += `<rect x="${o+c*sz}" y="${o+r*sz}" width="${sz}" height="${sz}" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>`;
+    const lab = (c, r, t, f, col) => `<circle cx="${o+c*sz+sz/2}" cy="${o+r*sz+sz/2}" r="22" fill="${f}"/><text x="${o+c*sz+sz/2}" y="${o+r*sz+sz/2+8}" text-anchor="middle" font-size="22" font-weight="800" fill="${col}">${t}</text>`;
+    s += lab(0, 0, "S", "var(--wood)", "var(--surface)") + lab(2, 2, "H", "var(--leaf)", "var(--surface)");
+    return s + `</svg>`;
+  },
+  circle() {
+    let s = `<svg viewBox="0 0 260 260" width="260" role="img" aria-label="Šest bobrů v kruhu, čísla 1 až 6 po směru hodinových ručiček">`;
+    s += `<circle cx="130" cy="130" r="90" fill="none" stroke="var(--river-soft)" stroke-width="14"/>`;
+    for (let i = 0; i < 6; i++) { const a = -Math.PI / 2 + i * Math.PI / 3, x = 130 + 90 * Math.cos(a), y = 130 + 90 * Math.sin(a);
+      s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="24" fill="var(--wood)"/><text x="${x.toFixed(1)}" y="${(y + 8).toFixed(1)}" text-anchor="middle" font-size="22" font-weight="800" fill="var(--surface)">${i + 1}</text>`; }
+    return s + `<path d="M150 72 A62 62 0 0 1 188 110" fill="none" stroke="var(--muted)" stroke-width="3" marker-end="url(#ar)"/><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="var(--muted)"/></marker></defs></svg>`;
+  },
+  coloring() {
+    const P = { A: [50, 110], B: [170, 40], C: [170, 180], D: [300, 110], E: [420, 180] };
+    return drawGraph(P, [["A","B"],["A","C"],["B","C"],["B","D"],["C","D"],["D","E"],["C","E"]], null, "Hnízda A až E. Sousedí: A–B, A–C, B–C, B–D, C–D, D–E, C–E", 470);
+  },
+  swamp() {
+    const P = { S: [40, 120], B: [170, 200], A: [170, 40], C: [310, 40], D: [310, 200], T: [440, 120] };
+    return drawGraph(P, [["S","A",4],["S","B",2],["B","A",1],["A","C",5],["B","C",8],["B","D",10],["C","D",2],["C","T",6],["D","T",2]], "S", "Cesty: S–A 4, S–B 2, B–A 1, A–C 5, B–C 8, B–D 10, C–D 2, C–T 6, D–T 2", 480);
+  },
+  pixels() {
+    const rows = ["01010","11111","11111","01110","00100"], sz = 44, o = 40;
+    let s = `<svg viewBox="0 0 280 270" width="280" role="img" aria-label="Černobílý obrázek srdce 5 na 5 políček">`;
+    rows.forEach((row, r) => { s += `<text x="20" y="${o + r*sz + 28}" text-anchor="middle" font-size="15" font-weight="800" fill="var(--muted)">${r+1}.</text>`;
+      row.split("").forEach((v, c) => s += `<rect x="${o + c*sz}" y="${o - 20 + r*sz}" width="${sz}" height="${sz}" fill="${v === "1" ? "var(--ink)" : "var(--surface)"}" stroke="var(--line)" stroke-width="2"/>`); });
+    return s + `</svg>`;
+  },
+  tree() {
+    const box = (x, y, w, t, q) => `<rect x="${x - w/2}" y="${y - 20}" width="${w}" height="40" rx="${q ? 12 : 20}" fill="${q ? "var(--river-soft)" : "var(--wood-soft)"}" stroke="${q ? "var(--river)" : "var(--wood)"}" stroke-width="2"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-size="15" font-weight="800" fill="var(--ink)">${t}</text>`;
+    const edge = (x1, y1, x2, y2, t) => `<line x1="${x1}" y1="${y1 + 20}" x2="${x2}" y2="${y2 - 20}" stroke="var(--muted)" stroke-width="2"/><text x="${(x1 + x2)/2 + (x2 > x1 ? 8 : -8)}" y="${(y1 + y2)/2 + 4}" text-anchor="${x2 > x1 ? "start" : "end"}" font-size="13" font-weight="800" fill="var(--muted)">${t}</text>`;
+    let s = `<svg viewBox="0 0 480 330" width="480" role="img" aria-label="Rozhodovací strom: Žije u vody? Ne: Les. Ano: Má peří? Ne: Nora. Ano: Umí létat? Ano: Hnízdo, Ne: Břeh.">`;
+    s += edge(170, 35, 80, 120, "ne") + edge(170, 35, 270, 120, "ano") + edge(270, 120, 180, 205, "ne") + edge(270, 120, 360, 205, "ano") + edge(360, 205, 290, 290, "ano") + edge(360, 205, 430, 290, "ne");
+    s += box(170, 35, 160, "Žije u vody?", true) + box(80, 120, 90, "Les") + box(270, 120, 130, "Má peří?", true) + box(180, 205, 90, "Nora") + box(360, 205, 140, "Umí létat?", true) + box(290, 290, 100, "Hnízdo") + box(430, 290, 90, "Břeh");
+    return s + `</svg>`;
+  },
+  scales() {
+    const pairs = [["A","B"],["C","A"],["B","D"],["E","C"]]; // první je těžší
+    let s = `<svg viewBox="0 0 720 170" width="720" role="img" aria-label="Čtyři váhy: A je těžší než B, C je těžší než A, B je těžší než D, E je těžší než C">`;
+    pairs.forEach(([h, l], i) => { const cx = 90 + i * 180;
+      s += `<polygon points="${cx-14},150 ${cx+14},150 ${cx},110" fill="var(--muted)"/><line x1="${cx-70}" y1="125" x2="${cx+70}" y2="95" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>`;
+      s += `<circle cx="${cx-55}" cy="98" r="22" fill="var(--wood)"/><text x="${cx-55}" y="106" text-anchor="middle" font-size="20" font-weight="800" fill="var(--surface)">${h}</text>`;
+      s += `<circle cx="${cx+55}" cy="70" r="22" fill="var(--wood-soft)" stroke="var(--wood)" stroke-width="3"/><text x="${cx+55}" y="78" text-anchor="middle" font-size="20" font-weight="800" fill="var(--wood)">${l}</text>`; });
+    return s + `</svg>`;
+  },
+  net() {
+    const P = { A: [50, 100], B: [150, 40], C: [150, 160], D: [260, 100], E: [370, 100], F: [470, 100] };
+    return drawGraph(P, [["A","B"],["A","C"],["B","D"],["C","D"],["D","E"],["E","F"]], null, "Bobři A až F spojení čarami: A–B, A–C, B–D, C–D, D–E, E–F", 520);
+  },
+  canals() {
+    const P = { A: [40, 120], B: [160, 40], C: [160, 200], D: [290, 120], E: [420, 40], F: [420, 200] };
+    return drawGraph(P, [["A","B",3],["A","C",5],["B","C",1],["B","D",4],["C","D",2],["C","F",6],["D","E",3],["D","F",7],["E","F",2]], null, "Rybníky A až F a možné kanály: A–B 3, A–C 5, B–C 1, B–D 4, C–D 2, C–F 6, D–E 3, D–F 7, E–F 2", 470);
+  },
+  graph6() {
+    const P = { A: [40, 120], B: [160, 40], C: [160, 200], D: [300, 40], E: [300, 200], F: [420, 120] };
+    return drawGraph(P, [["A","B",3],["A","C",1],["C","B",1],["B","D",4],["C","E",6],["D","E",2],["D","F",2],["E","F",1]], "A", "Rybníky A až F: A–B 3, A–C 1, C–B 1, B–D 4, C–E 6, D–E 2, D–F 2, E–F 1", 460);
+  },
+  sort5() {
+    const bob = [["Ota", 110], ["Ivo", 50], ["Max", 130], ["Ema", 70], ["Lea", 90]];
+    let s = `<svg viewBox="0 0 470 200" width="470" role="img" aria-label="Bobři v řadě zleva: Ota (4. nejmenší), Ivo (nejmenší), Max (největší), Ema (2. nejmenší), Lea (3. nejmenší)">`;
+    s += `<line x1="10" y1="160" x2="460" y2="160" stroke="var(--muted)" stroke-width="2"/>`;
+    bob.forEach(([n, h], i) => { const x = 50 + i * 92;
+      s += `<rect x="${x-24}" y="${160-h}" width="48" height="${h}" rx="20" fill="var(--wood)"/><circle cx="${x-9}" cy="${160-h+18}" r="4" fill="var(--surface)"/><circle cx="${x+9}" cy="${160-h+18}" r="4" fill="var(--surface)"/><text x="${x}" y="186" text-anchor="middle" font-size="16" font-weight="800" fill="var(--ink)">${n}</text>`; });
+    return s + `</svg>`;
+  },
+  house4() { return drawHouse({ gap: "wall", cursor: [100, 108], w: 260 }); },
+  house5() { return drawHouse({ gap: "roof", cursor: [140, 14], w: 260 }); },
+  house4opts() { return [
+    drawHouse({ gap: "wall", body: 1, w: 150 }),
+    drawHouse({ gap: "wall", out: 1, body: 1, w: 150 }),
+    drawHouse({ gap: "wall", out: 1, body: 1, win: 1, w: 150 }),
+    drawHouse({ gap: "wall", out: 1, body: 1, roof: 1, w: 150 }) ]; },
+  house5opts() { return [
+    drawHouse({ gap: "roof", out: 1, w: 150 }),
+    drawHouse({ gap: "roof", out: 1, body: 1, w: 150 }),
+    drawHouse({ gap: "roof", roof: 1, w: 150 }),
+    drawHouse({ gap: "roof", out: 1, roof: 1, w: 150 }) ]; },
+  folders() {
+    const rows = [[0,"Dokumenty",1],[1,"Škola",1],[2,"Matika",1],[3,"ukol.txt",0],[2,"Čeština",1],[3,"diktat.txt",0],[1,"Hry",1],[2,"skore.txt",0]];
+    const H = 34, X = 30;
+    let s = `<svg viewBox="0 0 330 ${rows.length * H + 16}" width="330" role="img" aria-label="Složka Dokumenty obsahuje Škola a Hry. Škola obsahuje Matika (ukol.txt) a Čeština (diktat.txt). Hry obsahují skore.txt.">`;
+    rows.forEach(([d, name, dir], i) => {
+      const y = 24 + i * H, x = 14 + d * X;
+      if (d > 0) { let p = i - 1; while (rows[p][0] !== d - 1) p--; const px = 14 + (d - 1) * X + 10, py = 24 + p * H + 10;
+        s += `<path d="M${px} ${py} V${y} H${x - 2}" fill="none" stroke="var(--line)" stroke-width="2"/>`; }
+      s += dir ? `<path d="M${x} ${y-9} h8 l3 3 h11 v14 h-22 Z" fill="var(--sun)"/>` : `<rect x="${x+3}" y="${y-10}" width="15" height="19" rx="2" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>`;
+      s += `<text x="${x + 30}" y="${y + 5}" font-size="16" font-weight="${dir ? 800 : 600}" fill="var(--ink)">${name}</text>`; });
+    return s + `</svg>`;
+  },
+  parity() {
+    const g = ["1010","0010","1100","0000"], sz = 52, o = 46, cols = "ABCD";
+    let s = `<svg viewBox="0 0 280 280" width="280" role="img" aria-label="Pole lamp 4 na 4. Řádek 1: svítí A a C. Řádek 2: svítí C. Řádek 3: svítí A a B. Řádek 4: nesvítí nic.">`;
+    s += `<rect x="${o + 3*sz - 4}" y="${o - 4}" width="${sz + 8}" height="${4*sz + 8}" rx="10" fill="none" stroke="var(--river)" stroke-width="2" stroke-dasharray="6 4"/><rect x="${o - 4}" y="${o + 3*sz - 4}" width="${4*sz + 8}" height="${sz + 8}" rx="10" fill="none" stroke="var(--river)" stroke-width="2" stroke-dasharray="6 4"/>`;
+    for (let c = 0; c < 4; c++) s += `<text x="${o + c*sz + sz/2}" y="${o - 14}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--muted)">${cols[c]}</text>`;
+    g.forEach((row, r) => { s += `<text x="${o - 18}" y="${o + r*sz + sz/2 + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--muted)">${r + 1}</text>`;
+      row.split("").forEach((v, c) => s += `<circle cx="${o + c*sz + sz/2}" cy="${o + r*sz + sz/2}" r="18" fill="${v === "1" ? "var(--sun)" : "var(--surface)"}" stroke="var(--ink)" stroke-width="2"/>`); });
+    return s + `</svg>`;
+  }
+};
+/* Domeček pro úlohy s plechovkou: plátno editoru je vždy bílé, modrá = vybarveno */
+function drawHouse(o) {
+  const B = "#5B8FCB", W = "#FFFFFF", K = "#1A1A1A";
+  const f = v => v ? B : W;
+  let s = `<svg viewBox="0 0 160 140" width="${o.w}" role="img" aria-label="Domeček s okénkem a střechou${o.gap === "wall" ? ", levá stěna má mezeru" : ", střecha má ve špičce mezeru"}">`;
+  s += `<rect x="0" y="0" width="160" height="140" fill="${f(o.out)}" stroke="var(--line)" stroke-width="2"/>`;
+  s += `<rect x="40" y="62" width="80" height="60" fill="${f(o.body)}"/><polygon points="40,62 80,24 120,62" fill="${f(o.roof)}"/><rect x="64" y="78" width="32" height="24" fill="${f(o.win)}"/>`;
+  const L = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${K}" stroke-width="4" stroke-linecap="round"/>`;
+  s += L(40, 62, 120, 62) + L(120, 62, 120, 122) + L(40, 122, 120, 122);
+  s += o.gap === "wall" ? L(40, 62, 40, 84) + L(40, 98, 40, 122) : L(40, 62, 40, 122);
+  s += o.gap === "roof" ? L(40, 62, 72, 32) + L(88, 32, 120, 62) : L(40, 62, 80, 24) + L(80, 24, 120, 62);
+  s += `<rect x="64" y="78" width="32" height="24" fill="none" stroke="${K}" stroke-width="3"/>`;
+  if (o.cursor) { const [x, y] = o.cursor; s += `<path d="M${x} ${y} l0 18 l5 -5 l4 8 l3 -1.5 l-4 -8 l7 0 Z" fill="${W}" stroke="${K}" stroke-width="1.5" stroke-linejoin="round"/>`; }
+  return s + `</svg>`;
+}
+function drawGrid(letters) {
+  const n = 5, sz = 56, o = 20;
+  let s = `<svg viewBox="0 0 320 320" width="320" role="img" aria-label="Mřížka 5 na 5, start vlevo dole, písmena A až D">`;
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) s += `<rect x="${o+c*sz}" y="${o+r*sz}" width="${sz}" height="${sz}" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>`;
+  const put = (c, r, t, fill, col) => `<circle cx="${o+c*sz+sz/2}" cy="${o+r*sz+sz/2}" r="20" fill="${fill}"/><text x="${o+c*sz+sz/2}" y="${o+r*sz+sz/2+8}" text-anchor="middle" font-size="22" font-weight="800" fill="${col}">${t}</text>`;
+  s += put(0, 4, "S", "var(--wood)", "var(--surface)");
+  letters.forEach(([t, c, r]) => s += put(c, r, t, "var(--river-soft)", "var(--river)"));
+  return s + `</svg>`;
+}
+function drawGraph(P, E, start, label, w) {
+  const h = Math.max(...Object.values(P).map(p => p[1])) + 40;
+  let s = `<svg viewBox="0 0 ${w} ${h}" width="${w}" role="img" aria-label="${label}">`;
+  E.forEach(([a, b, wt]) => { const [x1,y1] = P[a], [x2,y2] = P[b], mx = (x1+x2)/2, my = (y1+y2)/2;
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--river)" stroke-width="6" stroke-linecap="round"/>`;
+    if (wt != null) s += `<circle cx="${mx}" cy="${my}" r="14" fill="var(--surface)" stroke="var(--river)" stroke-width="2"/><text x="${mx}" y="${my+6}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--ink)">${wt}</text>`; });
+  Object.entries(P).forEach(([k,[x,y]]) => { const hot = k === start;
+    s += `<circle cx="${x}" cy="${y}" r="24" fill="${hot ? "var(--wood)" : "var(--river-soft)"}" stroke="var(--river)" stroke-width="3"/><text x="${x}" y="${y+8}" text-anchor="middle" font-size="22" font-weight="800" fill="${hot ? "var(--surface)" : "var(--river)"}">${k}</text>`; });
+  return s + `</svg>`;
+}
+
+/* =====================================================================
+   ODZNAKY
+   ===================================================================== */
+const BADGES = [
+  { id: "first", name: "První kláda", desc: "Vyřeš svou první úlohu", test: s => s.solved >= 1 },
+  { id: "perfect3", name: "Ostrý zub", desc: "3 úlohy hned napoprvé", test: s => s.perfect >= 3 },
+  { id: "level1", name: "Pán potůčku", desc: "Vyřeš všechny lehké úlohy", test: s => s.levelDone[1] },
+  { id: "level2", name: "Plavec řekou", desc: "Vyřeš všechny střední úlohy", test: s => s.levelDone[2] },
+  { id: "level3", name: "Krotitel vodopádu", desc: "Vyřeš všechny těžké úlohy", test: s => s.levelDone[3] },
+  { id: "all", name: "Mistr hráze", desc: "Vyřeš úplně všechno", test: s => s.solved === s.total && s.total > 0 }
+];
+const BADGE_ICON = `<svg class="b-ico" viewBox="0 0 34 34" aria-hidden="true"><path d="M17 2 L21 12 L32 13 L23.5 20 L26 31 L17 25 L8 31 L10.5 20 L2 13 L13 12 Z" fill="currentColor"/></svg>`;
+
+/* =====================================================================
+   STAV A UKLÁDÁNÍ
+   ===================================================================== */
+const KEY = "bobri-vyprava-v1";
+let store = { name: "", profiles: {} };
+try { const raw = localStorage.getItem(KEY); if (raw) store = Object.assign(store, JSON.parse(raw)); } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+function profKey(g) { return g + "|" + (store.name || "host").trim().toLowerCase(); }
+function prof(g) { const k = profKey(g); if (!store.profiles[k]) store.profiles[k] = { tasks: {} }; return store.profiles[k]; }
+function tstate(g, id) { const p = prof(g); if (!p.tasks[id]) p.tasks[id] = { status: "new", attempts: 0, stars: 0 }; return p.tasks[id]; }
+
+const view = { screen: "home", grade: null, taskId: null, choice: null, result: null, confirmReset: false };
+
+function tasksOf(g, lv) { return TASKS.filter(t => t.grade === g && (lv == null || t.level === lv)); }
+function isSolved(st) { return st.status === "done"; }
+function stats(g) {
+  const all = tasksOf(g); const p = prof(g);
+  const s = { total: all.length, solved: 0, stars: 0, maxStars: all.length * 3, perfect: 0, levelDone: {}, levelSolved: {} };
+  all.forEach(t => { const st = p.tasks[t.id]; if (st && isSolved(st)) { s.solved++; s.stars += st.stars; if (st.stars === 3) s.perfect++; s.levelSolved[t.level] = (s.levelSolved[t.level] || 0) + 1; } });
+  LEVELS.forEach(L => { const n = tasksOf(g, L.n).length; s.levelDone[L.n] = n > 0 && (s.levelSolved[L.n] || 0) === n; });
+  return s;
+}
+function unlockNeed(g, lv) { if (lv === 1) return 0; const prev = tasksOf(g, lv - 1).length; return Math.ceil(prev / 2); }
+function isUnlocked(g, lv) {
+  if (lv === 1) return true;
+  const p = prof(g);
+  const done = tasksOf(g, lv - 1).filter(t => { const st = p.tasks[t.id]; return st && st.status !== "new"; }).length;
+  return done >= unlockNeed(g, lv) && isUnlocked(g, lv - 1);
+}
+
+/* =====================================================================
+   VYKRESLENÍ
+   ===================================================================== */
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const starRow = (n, max = 3) => Array.from({ length: max }, (_, i) => i < n ? "<b>★</b>" : "★").join("");
+
+function render() {
+  document.getElementById("barRight").innerHTML = view.grade && view.screen !== "home"
+    ? `<span class="pill"><span class="star">★</span> ${stats(view.grade).stars}</span><span class="pill">${esc(store.name || "host")}</span><button class="btn finish" id="finishBtn">Ukončit a odeslat výsledky</button>` : "";
+  const fin = document.getElementById("finishBtn"); if (fin) fin.onclick = () => openModal("confirm");
+  if (view.screen === "home") renderHome();
+  else if (view.screen === "map") renderMap();
+  else renderTask();
+  renderReset();
+  window.scrollTo({ top: 0 });
+}
+
+function renderHome() {
+  app.innerHTML = `
+    <section class="hero">
+      <h1>Bobří <span>výprava</span></h1>
+      <p>Trénuj na soutěž Bobřík informatiky. Pluj po řece, lušti šifry a sbírej hvězdičky. Za každou vyřešenou úlohu se ti otevře kus další cesty.</p>
+      <div class="name-row">
+        <label for="nameInput">Jak se jmenuješ?</label>
+        <input id="nameInput" maxlength="40" placeholder="jméno a příjmení (ne přezdívku)" value="${esc(store.name)}" autocomplete="off">
+      </div>
+    </section>
+    <div class="grades">
+      ${Object.entries(GRADES).map(([g, G]) => {
+        if (G.secret && !expertUnlocked()) return `
+        <button class="grade secret" disabled aria-label="Zamčená tajná výzva">
+          <span class="cat">🔒 tajná výzva</span>
+          <span class="num">???</span>
+          <span style="color:var(--muted)">Otevře se, až vyřešíš všechny úlohy 4. nebo 5. třídy.</span>
+        </button>`;
+        const s = stats(g); return `
+        <button class="grade ${G.secret ? "expert" : ""}" data-grade="${g}">
+          <span class="cat">kategorie ${G.category}</span>
+          <span class="num">${G.label}</span>
+          <span style="color:var(--muted)">${G.blurb}</span>
+          <span class="meter"><i style="width:${s.total ? Math.round(s.solved / s.total * 100) : 0}%"></i></span>
+          <span class="meta"><span>${s.solved} z ${s.total} úloh</span><span><span class="star">★</span> ${s.stars} / ${s.maxStars}</span></span>
+        </button>`; }).join("")}
+    </div>`;
+  const inp = document.getElementById("nameInput");
+  inp.addEventListener("input", () => { store.name = inp.value; save(); });
+  app.querySelectorAll(".grade:not(.secret)").forEach(b => b.addEventListener("click", () => {
+    if (!store.name.trim()) { inp.focus(); inp.classList.remove("shake"); void inp.offsetWidth; inp.classList.add("shake"); inp.placeholder = "nejdřív napiš své jméno a příjmení"; return; }
+    view.grade = b.dataset.grade; view.screen = "map";
+    if (!session.start) session.start = new Date();
+    render();
+  }));
+}
+
+function renderMap() {
+  const g = view.grade, G = GRADES[g], s = stats(g), p = prof(g);
+  let html = `
+    <button class="back" id="toHome">← Výběr třídy</button>
+    <div class="map-head"><h1>${G.label} · ${G.category}</h1><p>Vyber si kládu a vyřeš úlohu. Hvězdičky dostaneš podle toho, na kolikátý pokus se trefíš.</p></div>
+    <div class="summary">
+      <span class="pill">Vyřešeno ${s.solved} z ${s.total}</span>
+      <span class="pill"><span class="star">★</span> ${s.stars} z ${s.maxStars}</span>
+    </div>`;
+  LEVELS.forEach(L => {
+    const list = tasksOf(g, L.n); if (!list.length) return;
+    const open = isUnlocked(g, L.n);
+    const need = unlockNeed(g, L.n);
+    html += `<section class="level ${open ? "" : "locked"}">
+      <div class="level-top"><div><div class="lv">Úroveň ${L.n} · ${L.note}</div><h2>${L.name}</h2></div><span class="count">${s.levelSolved[L.n] || 0} / ${list.length}</span></div>
+      <div class="stations">${list.map((t, i) => { const st = p.tasks[t.id] || { status: "new", stars: 0 };
+        return `<button class="station ${st.status}" data-id="${t.id}" ${open ? "" : "tabindex=\"-1\""} aria-label="${esc(t.title)}">
+          <span class="log">${i + 1}</span><span class="st-name">${esc(t.title)}</span><span class="stars">${starRow(st.stars)}</span></button>`; }).join("")}</div>
+      ${open ? "" : `<div class="lock-note">🔒 Otevře se, až zkusíš aspoň ${need} ${need === 1 ? "úlohu" : need < 5 ? "úlohy" : "úloh"} v předchozí úrovni.</div>`}
+    </section>`;
+  });
+  const got = BADGES.filter(b => b.test(s));
+  html += `<h2 class="section-title">Odznaky (${got.length} z ${BADGES.length})</h2><div class="badges">${BADGES.map(b => {
+    const has = b.test(s);
+    return `<div class="badge ${has ? "got" : ""}" style="color:${has ? "var(--sun)" : "var(--line)"}">${BADGE_ICON}<strong style="color:var(--ink)">${b.name}</strong><span>${b.desc}</span></div>`; }).join("")}</div>`;
+  app.innerHTML = html;
+  document.getElementById("toHome").onclick = () => { view.screen = "home"; render(); };
+  app.querySelectorAll(".station").forEach(b => b.addEventListener("click", () => openTask(b.dataset.id)));
+}
+
+function openTask(id) { view.taskId = id; view.screen = "task"; view.choice = null; view.result = null; render(); }
+
+function renderTask() {
+  const t = TASKS.find(x => x.id === view.taskId), g = view.grade, st = tstate(g, t.id);
+  const L = LEVELS.find(l => l.n === t.level);
+  const finished = st.status === "done" || st.status === "revealed";
+  let answerHtml = "";
+  if (t.type === "choice") {
+    const pics = t.optionsVisual && VISUALS[t.optionsVisual] ? VISUALS[t.optionsVisual]() : null;
+    answerHtml = `<div class="options ${pics ? "pics" : ""}" role="radiogroup">${t.options.map((o, i) => { const k = "ABCD"[i];
+      return `<button class="opt ${view.choice === k ? "sel" : ""}" data-k="${k}" role="radio" aria-checked="${view.choice === k}" ${finished ? "disabled" : ""}><span class="k">${k}</span><span>${pics ? pics[i] : esc(o)}</span></button>`; }).join("")}</div>`;
+  } else {
+    answerHtml = `<input class="answer-input" id="answerInput" ${t.type === "number" ? "inputmode=\"numeric\"" : ""} autocomplete="off" placeholder="${t.type === "number" ? "číslo" : "slovo"}" ${finished ? "disabled" : ""} value="${finished ? esc(String(Array.isArray(t.answer) ? t.answer[0] : t.answer)) : ""}">`;
+  }
+  let fb = "";
+  const r = view.result;
+  if (st.status === "done") {
+    fb = `<div class="feedback ok"><h3>Správně! ${r === "ok" ? "Paráda." : ""}</h3><div class="big-stars">${starRow(st.stars)}</div><p>${t.explain}</p></div>`;
+    const gs = stats(g);
+    if (g !== "x" && gs.solved === gs.total && r === "ok") fb += `<div class="unlock"><h3>🏆 Celá ${GRADES[g].label} je zdolaná!</h3><p>Otevřela se ti tajná <b>Mistrovská výzva</b> s 12 extra těžkými úlohami. Troufneš si?</p><div><button class="btn" id="expertBtn" style="background:var(--sun);box-shadow:none;color:#3a2a06">Do Mistrovské výzvy →</button></div></div>`;
+    if (g === "x" && gs.solved === gs.total && r === "ok") fb += `<div class="unlock"><h3>🏆 Jsi bobří mistr!</h3><p>Vyřešil(a) jsi všechny extra těžké úlohy. To je výkon, na který jsou hrdí i staří bobři.</p></div>`;
+  } else if (st.status === "revealed") {
+    fb = `<div class="feedback info"><h3>Řešení</h3><p>Správná odpověď: <b>${esc(answerText(t))}</b></p><p>${t.explain}</p><p class="tries">Tuhle úlohu si můžeš zkusit znovu později – tlačítkem dole.</p></div>`;
+  } else if (r === "no") {
+    fb = `<div class="feedback no"><h3>Ještě ne. Zkus to znovu!</h3>${st.attempts >= 2 ? `<p><b>Nápověda:</b> ${t.hint}</p>` : ""}</div>`;
+  }
+  const next = nextTask(g, t.id);
+  app.innerHTML = `
+    <button class="back" id="toMap">← Zpět na mapu</button>
+    <article class="task" style="margin-top:10px">
+      <div class="chips"><span class="chip">Úroveň ${t.level} · ${L.name}</span><span class="chip wood">${TOPICS[t.topic]}</span></div>
+      <h1>${esc(t.title)}</h1>
+      <div class="text">${t.text}</div>
+      ${t.visual && VISUALS[t.visual] ? `<div class="visual">${VISUALS[t.visual]()}</div>` : ""}
+      <div class="question">${t.question}</div>
+      ${answerHtml}
+      ${fb}
+      <div class="actions">
+        ${finished ? "" : `<button class="btn" id="checkBtn">Zkontrolovat</button>`}
+        ${!finished && st.attempts >= 3 ? `<button class="btn ghost" id="revealBtn">Ukaž mi řešení</button>` : ""}
+        ${finished && next ? `<button class="btn green" id="nextBtn">Další úloha →</button>` : ""}
+        ${finished ? `<button class="btn ghost" id="mapBtn">Na mapu</button>` : ""}
+        ${st.status === "revealed" ? `<button class="btn ghost" id="retryBtn">Zkusit znovu</button>` : ""}
+        ${!finished && st.attempts > 0 ? `<span class="tries">Pokus ${st.attempts + 1}</span>` : ""}
+      </div>
+    </article>`;
+
+  document.getElementById("toMap").onclick = toMap;
+  app.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { view.choice = b.dataset.k; view.result = null;
+    app.querySelectorAll(".opt").forEach(o => { const on = o.dataset.k === view.choice; o.classList.toggle("sel", on); o.setAttribute("aria-checked", on); }); }));
+  const inp = document.getElementById("answerInput");
+  if (inp && !finished) { inp.focus({ preventScroll: true }); inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); }); }
+  const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
+  on("checkBtn", check);
+  on("revealBtn", () => { st.status = "revealed"; st.stars = 0; save(); view.result = null; render(); });
+  on("nextBtn", () => openTask(next.id));
+  on("mapBtn", toMap);
+  on("expertBtn", () => { view.grade = "x"; view.screen = "map"; if (!session.start) session.start = new Date(); render(); });
+  on("retryBtn", () => { st.status = "new"; st.attempts = 0; save(); view.result = null; view.choice = null; render(); });
+}
+
+function toMap() { view.screen = "map"; render(); }
+function answerText(t) {
+  if (t.type === "choice") return t.optionsVisual ? "obrázek " + t.answer : t.answer + ") " + t.options["ABCD".indexOf(t.answer)];
+  return Array.isArray(t.answer) ? t.answer[0] : String(t.answer);
+}
+function norm(s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, "").toUpperCase(); }
+function isCorrect(t, val) {
+  if (t.type === "choice") return val === t.answer;
+  if (t.type === "number") return Number(String(val).replace(",", ".").trim()) === Number(t.answer);
+  return t.answer.map(norm).includes(norm(val));
+}
+function nextTask(g, id) {
+  const list = tasksOf(g).sort((a, b) => a.level - b.level); const i = list.findIndex(t => t.id === id);
+  for (let j = i + 1; j < list.length; j++) if (isUnlocked(g, list[j].level)) return list[j];
+  return null;
+}
+function check() {
+  const t = TASKS.find(x => x.id === view.taskId), st = tstate(view.grade, t.id);
+  let val;
+  if (t.type === "choice") val = view.choice;
+  else val = (document.getElementById("answerInput") || {}).value || "";
+  if (!val || !String(val).trim()) {
+    const box = document.querySelector(".options, .answer-input");
+    if (box) { box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake"); }
+    return;
+  }
+  st.attempts++;
+  if (isCorrect(t, val)) {
+    st.status = "done"; st.stars = st.attempts === 1 ? 3 : st.attempts === 2 ? 2 : 1;
+    view.result = "ok"; save(); render(); confetti();
+  } else {
+    view.result = "no"; save(); render();
+    const card = document.querySelector(".task"); if (card) card.classList.add("shake");
+  }
+}
+
+function renderReset() {
+  const box = document.getElementById("resetBox");
+  if (!view.grade || view.screen !== "map") { box.innerHTML = ""; return; }
+  box.innerHTML = view.confirmReset
+    ? `<span class="confirm">Opravdu smazat postup pro ${esc(store.name)} (${GRADES[view.grade].label})? <button class="btn ghost" id="resYes" style="padding:4px 12px;font-size:14px">Ano, smazat</button><button class="reset" id="resNo">Ne</button></span>`
+    : `<button class="reset" id="resAsk">Smazat můj postup v této třídě</button>`;
+  const a = document.getElementById("resAsk"); if (a) a.onclick = () => { view.confirmReset = true; renderReset(); };
+  const y = document.getElementById("resYes"); if (y) y.onclick = () => { delete store.profiles[profKey(view.grade)]; save(); view.confirmReset = false; render(); };
+  const n = document.getElementById("resNo"); if (n) n.onclick = () => { view.confirmReset = false; renderReset(); };
+}
+
+/* konfety */
+function confetti() {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ["#E9A72B", "#2C88B0", "#2F8A50", "#D9533B", "#94592F"];
+  const parts = Array.from({ length: 90 }, () => ({ x: innerWidth / 2, y: innerHeight * .35, vx: (Math.random() - .5) * 14, vy: -Math.random() * 12 - 3, s: Math.random() * 7 + 4, c: cols[Math.floor(Math.random() * cols.length)], r: Math.random() * 6 }));
+  let f = 0;
+  (function tick() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .35; p.r += .1; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * .6); ctx.restore(); });
+    if (++f < 110) requestAnimationFrame(tick); else ctx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+
+/* =====================================================================
+   ODESLÁNÍ VÝSLEDKŮ DO GOOGLE TABULKY
+   Sem vložte adresu webové aplikace z Google Apps Scriptu (návod v README).
+   ===================================================================== */
+const RESULTS_URL = "https://script.google.com/macros/s/AKfycbxiNKzkCKQOe9TnHRp6K2QnsX-N5o5mKBOU3JMXOeT8XbfgY8yK6kPWb0x3A0AUNoJ4NA/exec";
+
+const session = { start: null };
+function fmtDate(d) { return d.toLocaleString("cs-CZ", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }); }
+function gradeDetail(g) {
+  const p = prof(g);
+  return tasksOf(g).map(t => { const st = p.tasks[t.id];
+    const v = !st || st.status === "new" ? (st && st.attempts ? `nevyřešeno (${st.attempts}× špatně)` : "nezkoušel(a)")
+      : st.status === "revealed" ? `zobrazil(a) řešení (${st.attempts}× špatně)` : `${"★".repeat(st.stars)} (${st.attempts}. pokus)`;
+    return `${t.title}: ${v}`; }).join("; ");
+}
+/* Výsledky se posílají za všechny části zvlášť – dítě může zkoušet úlohy 4. i 5. třídy */
+function buildResults() {
+  const now = new Date();
+  const minutes = session.start ? Math.max(1, Math.round((now - session.start) / 60000)) : "";
+  const touched = g => tasksOf(g).some(t => { const st = prof(g).tasks[t.id]; return st && (st.attempts > 0 || st.status !== "new"); });
+  const revealedIn = g => tasksOf(g).filter(t => (prof(g).tasks[t.id] || {}).status === "revealed").length;
+  const rows = [
+    ["Odesláno", fmtDate(now)],
+    ["Jméno", (store.name || "").trim()],
+    ["Začátek práce", session.start ? fmtDate(session.start) : ""],
+    ["Doba práce (min)", minutes]
+  ];
+  let solved = 0, stars = 0;
+  ["4", "5", "x"].forEach(g => {
+    const s = stats(g), name = g === "x" ? "Mistrovská výzva" : GRADES[g].label + " (" + GRADES[g].category + ")";
+    solved += s.solved; stars += s.stars;
+    rows.push([name + ": vyřešeno", touched(g) ? `${s.solved}/${s.total}` : ""]);
+    rows.push([name + ": hvězdičky", touched(g) ? s.stars : ""]);
+    rows.push([name + ": zobrazená řešení", touched(g) ? revealedIn(g) : ""]);
+  });
+  ["4", "5", "x"].forEach(g => rows.push(["Detail " + (g === "x" ? "Mistrovská výzva" : GRADES[g].label), touched(g) ? gradeDetail(g) : ""]));
+  return { headers: rows.map(r => r[0]), values: rows.map(r => r[1]), summary: { name: (store.name || "").trim(), solved, stars, minutes } };
+}
+
+const modal = document.getElementById("modal");
+function openModal(state, info) {
+  const r = buildResults(), S = r.summary;
+  const box = `<div class="m-sum"><span><b>${esc(S.name)}</b></span><span>Vyřešené úlohy: <b>${S.solved}</b> · <span class="star">★</span> ${S.stars}${S.minutes ? ` · ${S.minutes} min` : ""}</span></div>`;
+  let html = "";
+  if (state === "confirm") html = `<h2>Opravdu chceš skončit?</h2><p>Tvoje výsledky se odešlou paní učitelce. Pak už v této hodině nepokračuješ.</p>${box}
+      <div class="actions"><button class="btn green" id="mYes">Ano, odeslat</button><button class="btn ghost" id="mNo">Ještě ne, chci pokračovat</button></div>`;
+  else if (state === "sending") html = `<h2>Odesílám…</h2><p>Chvilku vydrž, bobři nesou výsledky.</p>`;
+  else if (state === "sent") html = `<h2>Hotovo, odesláno! 🎉</h2><p>Skvělá práce. Výsledky dorazily paní učitelce.</p>${box}<div class="actions"><button class="btn" id="mDone">Zavřít</button></div>`;
+  else if (state === "error") html = `<h2>Odeslání se nepovedlo</h2><p>${info || "Zkontroluj připojení k internetu a zkus to znovu."} Tvůj postup zůstal uložený.</p>${box}<div class="actions"><button class="btn" id="mYes">Zkusit znovu</button><button class="btn ghost" id="mNo">Zpět ke hře</button></div>`;
+  modal.querySelector(".m-card").innerHTML = html;
+  modal.hidden = false;
+  const on = (id, fn) => { const el = document.getElementById(id); if (el) { el.onclick = fn; } };
+  on("mNo", closeModal);
+  on("mYes", sendResults);
+  on("mDone", () => { closeModal(); store.name = ""; save(); session.start = null; view.grade = null; view.screen = "home"; render(); });
+  const first = modal.querySelector("button"); if (first) first.focus();
+}
+function closeModal() { modal.hidden = true; }
+async function sendResults() {
+  if (!RESULTS_URL) { openModal("error", "Odesílání výsledků zatím není nastavené. Řekni to paní učitelce."); return; }
+  const r = buildResults();
+  openModal("sending");
+  try {
+    await fetch(RESULTS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ headers: r.headers, values: r.values }) });
+    openModal("sent");
+  } catch (e) { openModal("error"); }
+}
+modal.addEventListener("click", e => { if (e.target === modal && !modal.querySelector("#mDone")) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden && modal.querySelector("#mNo")) closeModal(); });
+
+document.getElementById("homeBtn").onclick = () => { view.screen = "home"; render(); };
+render();
+</script>
