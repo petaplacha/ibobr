@@ -188,7 +188,6 @@ footer a { color: var(--river); }
     Ukázkové úlohy v této verzi jsou vlastní, napsané ve stylu soutěže. Úlohy z archivu iBobr (© Bobřík informatiky, KI PF JČU) jsou šířené pod licencí
     <a href="https://creativecommons.org/licenses/by-sa/3.0/cz/" target="_blank" rel="noopener">CC BY-SA 3.0 CZ</a>; tato stránka je pod stejnou licencí.
     Postup se ukládá jen v tomto prohlížeči.
-    <div style="margin-top:8px" id="resetBox"></div>
   </footer>
 </div>
 
@@ -222,323 +221,284 @@ const TASKS = [
     text: "<p>Bobřice Klára navléká korálky pořád podle stejného pravidla. Začátek náhrdelníku vidíš na obrázku.</p>",
     visual: "beads",
     question: "Jakou barvu bude mít 10. korálek?",
-    type: "choice", options: ["červenou", "modrou", "žlutou", "zelenou"], answer: "A",
-    hint: "Najdi skupinku korálků, která se pořád opakuje. Kolik korálků v ní je?",
-    explain: "Opakuje se trojice červená, modrá, modrá. Korálky 1, 4, 7 a 10 jsou vždy první v trojici, takže 10. korálek je červený. Hledání opakujícího se vzoru je základ informatického myšlení." },
+    type: "choice", options: ["červenou", "modrou", "žlutou", "zelenou"], 
+    hint: "Najdi skupinku korálků, která se pořád opakuje. Kolik korálků v ní je?" },
   { id: "m-klada", grade: "4", level: 1, topic: "logika", title: "Na kládě",
     text: "<p>Ali, Bára a Cyril sedí vedle sebe na kládě.</p><p>Ali sedí úplně vlevo. Cyril nesedí vedle Aliho.</p>",
     visual: "log3",
     question: "Kdo sedí uprostřed?",
-    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], answer: "B",
-    hint: "Ali zabral levé místo. Kam se může posadit Cyril, aby nebyl vedle Aliho?",
-    explain: "Ali sedí vlevo. Prostřední místo je vedle Aliho, a tam Cyril sedět nesmí. Cyril tedy sedí vpravo a uprostřed zbývá Bára." },
+    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], 
+    hint: "Ali zabral levé místo. Kam se může posadit Cyril, aby nebyl vedle Aliho?" },
   { id: "m-sifra", grade: "4", level: 2, topic: "sifry", title: "Tajný vzkaz",
     text: "<p>Bobři si posílají tajné vzkazy. Každé písmeno nahradí písmenem, které je v abecedě <b>hned za ním</b> (A → B, B → C, …).</p><p>Přišel vzkaz: <b style=\"font-family:var(--f-display);font-size:24px;letter-spacing:4px\">CPCS</b></p>",
     visual: "alphabet",
     question: "Jaké slovo bobr poslal?",
-    type: "text", answer: ["BOBR"],
-    hint: "Abys vzkaz rozluštil, posuň každé písmeno o jedno místo zpátky.",
-    explain: "C → B, P → O, C → B, S → R. Vzkaz zní BOBR. Takové šifře se říká Caesarova šifra: každé písmeno se posune o stejný počet míst." },
+    type: "text", 
+    hint: "Abys vzkaz rozluštil, posuň každé písmeno o jedno místo zpátky." },
   { id: "m-robot", grade: "4", level: 2, topic: "algoritmy", title: "Robot Bobík",
     text: "<p>Robot Bobík stojí na startu (S). Dostane program:</p><p style=\"font-family:var(--f-display);font-size:26px;letter-spacing:6px\">↑ ↑ → → ↓</p><p>Každá šipka znamená jeden krok o jedno políčko daným směrem.</p>",
     visual: "grid",
     question: "Na kterém písmenu robot skončí?",
-    type: "choice", options: ["A", "B", "C", "D"], answer: "C",
-    hint: "Prstem jdi po mřížce krok za krokem. Nahoru, nahoru, doprava, doprava, dolů.",
-    explain: "Ze startu dva kroky nahoru, pak dva doprava a jeden dolů. Robot skončí na políčku C. Program je přesný seznam kroků, který robot provede jeden po druhém." },
+    type: "choice", options: ["A", "B", "C", "D"], 
+    hint: "Prstem jdi po mřížce krok za krokem. Nahoru, nahoru, doprava, doprava, dolů." },
   { id: "m-razeni", grade: "4", level: 3, topic: "algoritmy", title: "Seřaďte se!",
     text: "<p>Pět bobrů se má postavit do řady od nejmenšího (vlevo) po největšího (vpravo). Smí se ale jen <b>prohodit dva sousedé</b>, kteří stojí hned vedle sebe.</p>",
     visual: "sort5",
     question: "Kolik takových výměn je potřeba nejméně?",
-    type: "number", answer: 5,
-    hint: "U každého bobra spočítej, kolik menších bobrů stojí napravo od něj. Každý takový pár se musí jednou prohodit.",
-    explain: "Napravo od Oty stojí 3 menší bobři (Ivo, Ema, Lea), napravo od Maxe 2 menší (Ema, Lea). Ivo, Ema a Lea žádného menšího napravo nemají. Každá výměna sousedů opraví právě jeden takový pár, takže je potřeba 3 + 2 = 5 výměn." },
+    type: "number", 
+    hint: "U každého bobra spočítej, kolik menších bobrů stojí napravo od něj. Každý takový pár se musí jednou prohodit." },
   { id: "m-cesta", grade: "4", level: 3, topic: "grafy", title: "Nejkratší cesta k hrázi",
     text: "<p>Bobr chce doplavat z rybníka <b>A</b> k hrázi <b>F</b>. Čísla u cest ukazují, kolik minut trvá cesta.</p>",
     visual: "graph6",
     question: "Kolik minut trvá nejrychlejší cesta z A do F?",
-    type: "number", answer: 8,
-    hint: "Ke každému rybníku si zapiš, za kolik nejméně minut se do něj dá doplavat. Do B je to rychleji oklikou přes C!",
-    explain: "Do C se dá doplavat za 1, do B přes C za 2, do D za 2 + 4 = 6, do E za 1 + 6 = 7. Do F to trvá 6 + 2 = 8 nebo 7 + 1 = 8 minut. Nejrychlejší cesta trvá 8 minut. Takhle hledají nejkratší cestu navigace v mobilu." },
+    type: "number", 
+    hint: "Ke každému rybníku si zapiš, za kolik nejméně minut se do něj dá doplavat. Do B je to rychleji oklikou přes C!" },
 
   /* ---------- 5. třída (Benjamin) ---------- */
   { id: "b-cisla", grade: "5", level: 1, topic: "sifry", title: "Řeka v číslech",
     text: "<p>Bobr nahradil každé písmeno jeho pořadím v abecedě bez háčků a čárek: A = 1, B = 2, C = 3, …</p><p>Jeho vzkaz: <b style=\"font-family:var(--f-display);font-size:24px;letter-spacing:2px\">18 – 5 – 11 – 1</b></p>",
     visual: "alphabetNum",
     question: "Jaké slovo bobr zapsal?",
-    type: "text", answer: ["REKA"],
-    hint: "Pomoz si tabulkou. Které písmeno je 18.?",
-    explain: "18 = R, 5 = E, 11 = K, 1 = A. Vzniklo slovo REKA (řeka). Převádět písmena na čísla musí každý počítač, protože si všechno ukládá jako čísla." },
+    type: "text", 
+    hint: "Pomoz si tabulkou. Které písmeno je 18.?" },
   { id: "b-strom", grade: "5", level: 1, topic: "algoritmy", title: "Rostoucí hráz",
     text: "<p>Na začátku má hráz <b>1</b> kládu. Bobři pak čtyřikrát zopakují tento příkaz:</p><p style=\"font-family:var(--f-display);font-size:20px\">opakuj 4×: počet klád = počet klád × 2</p>",
     visual: null,
     question: "Kolik klád bude mít hráz na konci?",
-    type: "number", answer: 16,
-    hint: "Piš si to po krocích: 1 → 2 → …",
-    explain: "1 → 2 → 4 → 8 → 16. Příkaz „opakuj“ je cyklus a počet klád je proměnná, která se v každém kroku změní." },
+    type: "number", 
+    hint: "Piš si to po krocích: 1 → 2 → …" },
   { id: "b-tabulka", grade: "5", level: 2, topic: "data", title: "Bobří tabulka",
     text: "<p>Ve kolonii žije šest bobrů. Tabulka ukazuje jejich věk a oblíbený strom.</p>",
     visual: "table",
     question: "Kolik bobrů je starších než 3 roky a zároveň má nejraději vrbu?",
-    type: "number", answer: 2,
-    hint: "Musí platit obě podmínky najednou. A pozor: 3 roky není „starší než 3“.",
-    explain: "Starší než 3 roky jsou Lili, Kuba a Ola. Z nich má vrbu ráda Lili a Ola, tedy 2 bobři. Sára má 3 roky, takže podmínku nesplňuje. Takhle se filtrují data v tabulkách a databázích." },
+    type: "number", 
+    hint: "Musí platit obě podmínky najednou. A pozor: 3 roky není „starší než 3“." },
   { id: "b-lampy", grade: "5", level: 2, topic: "data", title: "Signální lampy",
     text: "<p>Bobři si čísla posílají čtyřmi lampami. Takto vypadají dvě čísla:</p>",
     visual: "lamps",
     question: "Jaké číslo ukazují lampy ● ● ○ ● ?",
-    type: "number", answer: 13,
-    hint: "Každá lampa má svou hodnotu. Zjisti ji z příkladů. Poslední lampa vpravo má hodnotu 1.",
-    explain: "Lampy mají zprava hodnoty 1, 2, 4 a 8. Rozsvícené jsou 8, 4 a 1, takže 8 + 4 + 1 = 13. Takto počítač zapisuje čísla ve dvojkové soustavě." },
+    type: "number", 
+    hint: "Každá lampa má svou hodnotu. Zjisti ji z příkladů. Poslední lampa vpravo má hodnotu 1." },
   { id: "b-hromada", grade: "5", level: 3, topic: "data", title: "Hromada klád",
     text: "<p>Ke hrázi připlouvají klády s čísly <b>1, 2, 3, 4</b> přesně v tomto pořadí. Bobr každou připlutou kládu položí na hromadu. Kdykoliv mezitím může vzít kládu, která je <b>nahoře</b>, a odnést ji na hráz.</p><p>Například když položí 1, odnese ji, položí 2, položí 3, odnese 3, odnese 2, položí 4 a odnese 4, klády přijdou na hráz v pořadí 1 3 2 4.</p>",
     visual: null,
     question: "Které pořadí klád na hrázi bobr vytvořit NEDOKÁŽE?",
-    type: "choice", options: ["4 3 2 1", "2 1 4 3", "3 1 2 4", "1 2 3 4"], answer: "C",
-    hint: "Aby odnesl jako první kládu 3, musí na hromadu nejdřív položit 1 a 2. Která kláda je pak nahoře?",
-    explain: "Když bobr odnese kládu 3 jako první, leží na hromadě 2 na 1. Nahoře je 2, takže kládu 1 nemůže odnést dřív než 2. Pořadí 3 1 2 4 proto nejde. Ostatní pořadí vytvořit jde. Hromadě, ze které se bere jen shora, se říká zásobník." },
+    type: "choice", options: ["4 3 2 1", "2 1 4 3", "3 1 2 4", "1 2 3 4"], 
+    hint: "Aby odnesl jako první kládu 3, musí na hromadu nejdřív položit 1 a 2. Která kláda je pak nahoře?" },
   { id: "b-hadani", grade: "5", level: 3, topic: "algoritmy", title: "Hádej číslo",
     text: "<p>Bobřice si myslí číslo od 1 do 1000. Bobr se ptá na čísla a ona odpovídá jen „víc“, „míň“ nebo „uhodl jsi“.</p>",
     visual: null,
     question: "Kolik otázek bobrovi vždycky stačí, když se ptá co nejchytřeji?",
-    type: "number", answer: 10,
-    hint: "Nejchytřejší je ptát se na číslo uprostřed. Kolikrát musíš 1000 půlit, než zbude jedno číslo?",
-    explain: "Když se bobr ptá vždy na prostřední číslo, každá odpověď vyřadí polovinu možností: 1000 → 500 → 250 → 125 → 63 → 32 → 16 → 8 → 4 → 2 → 1. Stačí tedy 10 otázek. Tomuto postupu se říká binární vyhledávání a díky němu počítač najde slovo v obřím slovníku za okamžik." },
+    type: "number", 
+    hint: "Nejchytřejší je ptát se na číslo uprostřed. Kolikrát musíš 1000 půlit, než zbude jedno číslo?" },
 
   /* ---------- 4. třída (Mini) – další úlohy ---------- */
   { id: "m-obrazek", grade: "4", level: 1, topic: "kodovani", title: "Obrázek v kódu",
     text: "<p>Bobr popisuje obrázek po řádcích. Bílé políčko zapíše jako <b>B</b>, černé jako <b>Č</b>. První řádek tak zapíše <b>B Č B Č B</b>.</p>",
     visual: "pixels",
     question: "Jak zapíše 4. řádek?",
-    type: "choice", options: ["Č B B B Č", "B Č B Č B", "B Č Č Č B", "B B Č B B"], answer: "C",
-    hint: "Najdi 4. řádek odshora a čti políčka zleva doprava.",
-    explain: "Ve 4. řádku je bílé, černé, černé, černé a bílé políčko: B Č Č Č B. Počítač si obrázek pamatuje přesně takhle, jako řadu malých políček (pixelů) zapsaných čísly nebo znaky." },
+    type: "choice", options: ["Č B B B Č", "B Č B Č B", "B Č Č Č B", "B B Č B B"], 
+    hint: "Najdi 4. řádek odshora a čti políčka zleva doprava." },
   { id: "m-heslo", grade: "4", level: 1, topic: "bezpecnost", title: "Heslo k bobří noře",
     text: "<p>Bobři si chtějí zamknout noru heslem, které nikdo neuhodne.</p>",
     visual: null,
     question: "Které heslo je nejbezpečnější?",
-    type: "choice", options: ["bobr", "12345", "Bobr2015", "Kláda-Mrkev-7-Vrba!"], answer: "D",
-    hint: "Které heslo by se zloději nejhůř hádalo? Je dlouhé a složené z různých věcí?",
-    explain: "Nejbezpečnější je dlouhé heslo z několika nesouvisejících slov, čísel a znaků. Slovo „bobr“, řadu 12345 nebo jméno s rokem uhodne zloděj nebo počítač velmi rychle." },
+    type: "choice", options: ["bobr", "12345", "Bobr2015", "Kláda-Mrkev-7-Vrba!"], 
+    hint: "Které heslo by se zloději nejhůř hádalo? Je dlouhé a složené z různých věcí?" },
   { id: "m-tanec", grade: "4", level: 2, topic: "programovani", title: "Bobří tanec",
     text: "<p>Bobři tančí podle programu. Co je uvnitř příkazu <b>opakuj</b>, udělají tolikrát, kolikrát se píše.</p><div class=\"code\">opakuj 2×:\n    tleskni\n    opakuj 3×:\n        dupni</div>",
     visual: null,
     question: "Kolik zvuků (tlesknutí a dupnutí dohromady) bobři udělají?",
-    type: "number", answer: 8,
-    hint: "Kolik zvuků udělají v jednom kole? A kolik je kol?",
-    explain: "Jedno kolo je 1 tlesknutí a 3 dupnutí, tedy 4 zvuky. Kola jsou 2, takže 2 × 4 = 8 zvuků. Cyklus uvnitř cyklu se v programování používá velmi často." },
+    type: "number", 
+    hint: "Kolik zvuků udělají v jednom kole? A kolik je kol?" },
   { id: "m-strom", grade: "4", level: 2, topic: "data", title: "Kam patří tučňák?",
     text: "<p>Bobr třídí zvířata podle otázek. Začne nahoře a podle odpovědi „ano“ nebo „ne“ pokračuje dolů.</p>",
     visual: "tree",
     question: "Kam bobr pošle tučňáka? (Tučňák žije u vody, má peří a neumí létat.)",
-    type: "choice", options: ["Les", "Nora", "Hnízdo", "Břeh"], answer: "D",
-    hint: "Odpověz na první otázku za tučňáka a jdi po správné větvi.",
-    explain: "Žije u vody? Ano. Má peří? Ano. Umí létat? Ne. Tučňák skončí na břehu. Takovému schématu se říká rozhodovací strom a počítače ho používají třeba při třídění." },
+    type: "choice", options: ["Les", "Nora", "Hnízdo", "Břeh"], 
+    hint: "Odpověz na první otázku za tučňáka a jdi po správné větvi." },
   { id: "m-vahy", grade: "4", level: 3, topic: "logika", title: "Nejlehčí kláda",
     text: "<p>Bobr vážil pět klád A, B, C, D a E na vahách. Těžší kláda je vždy níž.</p>",
     visual: "scales",
     question: "Která kláda je druhá nejlehčí?",
-    type: "choice", options: ["A", "B", "D", "E"], answer: "B",
-    hint: "Seřaď všech pět klád od nejtěžší. Začni tou, která na žádných vahách nebyla lehčí.",
-    explain: "Z vah víme: A je těžší než B, C je těžší než A, B je těžší než D a E je těžší než C. Pořadí od nejtěžší je E, C, A, B, D. Nejlehčí je D a druhá nejlehčí B. Řadit věci jen podle porovnání dvojic musí umět každý řadicí algoritmus." },
+    type: "choice", options: ["A", "B", "D", "E"], 
+    hint: "Seřaď všech pět klád od nejtěžší. Začni tou, která na žádných vahách nebyla lehčí." },
   { id: "m-zprava", grade: "4", level: 3, topic: "site", title: "Novina se šíří",
     text: "<p>Bobři si předávají noviny. Každou minutu každý bobr, který novinu už zná, ji řekne všem bobrům, se kterými je spojený čarou.</p>",
     visual: "net",
     question: "Který bobr by měl novinu začít šířit, aby ji všichni znali co nejdřív?",
-    type: "choice", options: ["A", "B", "D", "E"], answer: "C",
-    hint: "Vyzkoušej to pro každého bobra. Za kolik minut se novina dostane k tomu nejvzdálenějšímu?",
-    explain: "Když začne D, za 1 minutu ji znají B, C a E a za 2 minuty i A a F. Od B, C nebo E to trvá 3 minuty a od A nebo F dokonce 4. Nejlepší je bobr D, který je „uprostřed“ sítě. Proto se důležité servery staví tam, odkud to mají všichni blízko." },
+    type: "choice", options: ["A", "B", "D", "E"], 
+    hint: "Vyzkoušej to pro každého bobra. Za kolik minut se novina dostane k tomu nejvzdálenějšímu?" },
 
   /* ---------- 5. třída (Benjamin) – další úlohy ---------- */
   { id: "b-komprese", grade: "5", level: 1, topic: "kodovani", title: "Zkrácený obrázek",
     text: "<p>Bobr šetří místo. Řádek obrázku nepíše po políčkách, ale napíše, <b>kolik políček stejné barvy jde za sebou</b>. Vždy začíná bílou a barvy se střídají.</p><p>Například kód <b>1, 3, 1</b> znamená: 1 bílé, 3 černé, 1 bílé, tedy <b>B Č Č Č B</b>.</p>",
     visual: null,
     question: "Který řádek odpovídá kódu 2, 1, 2?",
-    type: "choice", options: ["B Č Č B B", "B B Č B B", "Č Č B Č Č", "B B B Č B"], answer: "B",
-    hint: "Začni bílou: nejdřív 2 bílá políčka, pak 1 černé, pak…",
-    explain: "2 bílá, 1 černé, 2 bílá: B B Č B B. Takovému zkracování se říká komprese. Díky ní zabírají obrázky v počítači méně místa." },
+    type: "choice", options: ["B Č Č B B", "B B Č B B", "Č Č B Č Č", "B B B Č B"], 
+    hint: "Začni bílou: nejdřív 2 bílá políčka, pak 1 černé, pak…" },
   { id: "b-podvod", grade: "5", level: 1, topic: "bezpecnost", title: "Podezřelá zpráva",
     text: "<p>Bobrovi přišla zpráva: <i>„Gratulujeme! Vyhrál jsi tablet. Pošli nám své heslo a adresu a tablet ti hned pošleme.“</i></p>",
     visual: null,
     question: "Co by měl bobr udělat?",
-    type: "choice", options: ["Poslat heslo, ať tablet rychle přijde", "Poslat jen adresu, heslo ne", "Nic neposílat a ukázat zprávu dospělému", "Přeposlat zprávu kamarádům, ať taky vyhrají"], answer: "C",
-    hint: "Kdo by měl znát tvoje heslo? A dávají opravdu cizí lidé tablety zadarmo?",
-    explain: "Je to podvodná zpráva (phishing). Heslo nikdy nikomu neposíláme a nesdílíme ani adresu. Nejlepší je zprávu neotvírat dál a ukázat ji dospělému." },
+    type: "choice", options: ["Poslat heslo, ať tablet rychle přijde", "Poslat jen adresu, heslo ne", "Nic neposílat a ukázat zprávu dospělému", "Přeposlat zprávu kamarádům, ať taky vyhrají"], 
+    hint: "Kdo by měl znát tvoje heslo? A dávají opravdu cizí lidé tablety zadarmo?" },
   { id: "b-robot", grade: "5", level: 2, topic: "programovani", title: "Robot se otáčí",
     text: "<p>Robot Bobík stojí na startu (S) a dívá se <b>nahoru</b>. „Krok“ znamená jedno políčko dopředu, tam kam se dívá. „Vpravo“ znamená otočit se na místě doprava.</p><div class=\"code\">opakuj 2×:\n    krok\n    krok\n    vpravo</div>",
     visual: "grid2",
     question: "Na kterém písmenu robot skončí?",
-    type: "choice", options: ["A", "B", "C", "D"], answer: "B",
-    hint: "Po prvním otočení se robot dívá doprava. Kam vedou další dva kroky?",
-    explain: "Dva kroky nahoru, otočení doprava, dva kroky doprava a znovu otočení. Robot stojí na B. Otočení robota nikam neposune, změní jen směr dalších kroků." },
+    type: "choice", options: ["A", "B", "C", "D"], 
+    hint: "Po prvním otočení se robot dívá doprava. Kam vedou další dva kroky?" },
   { id: "b-razeni", grade: "5", level: 2, topic: "algoritmy", title: "Řazení kartiček",
     text: "<p>Bobr řadí kartičky <b>7, 9, 3, 2, 5</b> takto: v každém kole najde nejmenší číslo mezi kartičkami, které ještě nejsou hotové, a <b>prohodí ho</b> s první nehotovou kartičkou.</p>",
     visual: null,
     question: "Jak budou kartičky ležet po 2 kolech?",
-    type: "choice", options: ["2 3 5 7 9", "2 9 3 7 5", "2 3 7 9 5", "2 3 9 7 5"], answer: "D",
-    hint: "1. kolo: nejmenší je 2, prohodí se se 7. Jak vypadá řada? A co ve 2. kole?",
-    explain: "1. kolo: 2 se prohodí se 7 → 2 9 3 7 5. 2. kolo: nejmenší ze zbytku je 3, prohodí se s 9 → 2 3 9 7 5. Celé seřazené to ještě není. Tomuto postupu se říká řazení výběrem." },
+    type: "choice", options: ["2 3 5 7 9", "2 9 3 7 5", "2 3 7 9 5", "2 3 9 7 5"], 
+    hint: "1. kolo: nejmenší je 2, prohodí se se 7. Jak vypadá řada? A co ve 2. kole?" },
   { id: "b-parita", grade: "5", level: 3, topic: "kodovani", title: "Rozbitá lampa",
     text: "<p>Bobři posílají pole lamp. Poslední sloupec a poslední řádek jsou kontrolní: lampy jsou nastavené tak, aby v každém řádku i sloupci svítil <b>sudý počet</b> lamp (0, 2, 4…).</p><p>Při přenosu se jedna lampa pokazila a přepnula.</p>",
     visual: "parity",
     question: "Která lampa je pokažená?",
-    type: "choice", options: ["A1", "B2", "C3", "B3"], answer: "B",
-    hint: "Spočítej rozsvícené lampy v každém řádku a sloupci. Kde je lichý počet?",
-    explain: "Lichý počet svítících lamp je jen v řádku 2 a ve sloupci B. Chyba je tedy na jejich křížení, v B2. Kontrolní (paritní) bity používají počítače, aby poznaly a opravily chyby při přenosu dat." },
+    type: "choice", options: ["A1", "B2", "C3", "B3"], 
+    hint: "Spočítej rozsvícené lampy v každém řádku a sloupci. Kde je lichý počet?" },
   { id: "b-kanaly", grade: "5", level: 3, topic: "grafy", title: "Kanály mezi rybníky",
     text: "<p>Bobři chtějí propojit všech šest rybníků kanály, aby se dalo doplavat odkudkoliv kamkoliv (klidně oklikou). Čísla ukazují, kolik práce stojí vykopat každý kanál. Nemusí kopat všechny.</p>",
     visual: "canals",
     question: "Kolik práce nejméně stačí na propojení všech rybníků?",
-    type: "number", answer: 11,
-    hint: "Vybírej kanály od nejlevnějšího. Kanál přeskoč, když spojuje rybníky, mezi kterými už cesta vede.",
-    explain: "Bobři vykopou B–C (1), C–D (2), E–F (2), A–B (3) a D–E (3), dohromady 11. Kanál B–D (4) už není potřeba, protože B a D jsou spojené přes C. Takhle se plánují elektrické nebo internetové sítě, aby byly co nejlevnější." },
+    type: "number", 
+    hint: "Vybírej kanály od nejlevnějšího. Kanál přeskoč, když spojuje rybníky, mezi kterými už cesta vede." },
 
   /* ---------- Práce s počítačem – 4. třída ---------- */
   { id: "m-pripona", grade: "4", level: 1, topic: "pocitac", title: "Co je v souboru?",
     text: "<p>Bobr má ve složce čtyři soubory. Konec názvu za tečkou (přípona) prozrazuje, co v souboru je.</p>",
     visual: null,
     question: "Ve kterém souboru je nejspíš fotka?",
-    type: "choice", options: ["dopis.docx", "vylet.jpg", "pisnicka.mp3", "hra.exe"], answer: "B",
-    hint: "Které z přípon jsi už viděl u obrázků z mobilu nebo foťáku?",
-    explain: "Přípona .jpg patří fotkám a obrázkům. .docx je dokument z textového editoru, .mp3 je hudba a .exe je program, který se dá spustit. Podle přípony počítač pozná, kterým programem soubor otevřít." },
+    type: "choice", options: ["dopis.docx", "vylet.jpg", "pisnicka.mp3", "hra.exe"], 
+    hint: "Které z přípon jsi už viděl u obrázků z mobilu nebo foťáku?" },
   { id: "m-plechovka", grade: "4", level: 2, topic: "pocitac", title: "Vybarvi domeček",
     text: "<p>Bobřice nakreslila v grafickém editoru domeček. Jednu čáru ale nedotáhla. Pak vybrala nástroj <b>Plechovka</b>, modrou barvu a klikla tam, kde je na obrázku šipka.</p><p>Plechovka vybarví místo, kam klikneš, a rozleje se všude, kam se dostane bez překročení čáry.</p>",
     visual: "house4",
     question: "Jak bude obrázek vypadat?",
-    type: "choice", optionsVisual: "house4opts", options: ["", "", "", ""], answer: "B",
-    hint: "Podívej se pozorně na levou stěnu domečku. Kudy může barva utéct?",
-    explain: "Levá stěna má mezeru, takže barva vyteče z domečku ven a vybarví i celé okolí. Střecha a okno jsou úplně uzavřené čárou, a proto zůstanou bílé." },
+    type: "choice", optionsVisual: "house4opts", options: ["", "", "", ""], 
+    hint: "Podívej se pozorně na levou stěnu domečku. Kudy může barva utéct?" },
   { id: "m-zarizeni", grade: "4", level: 2, topic: "pocitac", title: "Co jde do počítače?",
     text: "<p>Některá zařízení posílají informace <b>do</b> počítače (vstupní), jiná je z počítače ukazují nebo přehrávají (výstupní).</p><p><b>klávesnice, myš, monitor, mikrofon, tiskárna, webkamera, reproduktory</b></p>",
     visual: null,
     question: "Kolik z těchto zařízení je vstupních?",
-    type: "number", answer: 4,
-    hint: "U každého zařízení si řekni: posílám tím něco počítači, nebo mi počítač něco ukazuje?",
-    explain: "Vstupní jsou klávesnice, myš, mikrofon a webkamera, celkem 4. Monitor, tiskárna a reproduktory jsou výstupní, protože nám ukazují nebo přehrávají, co počítač vytvořil." },
+    type: "number", 
+    hint: "U každého zařízení si řekni: posílám tím něco počítači, nebo mi počítač něco ukazuje?" },
   { id: "m-schranka", grade: "4", level: 3, topic: "pocitac", title: "Kopírovat a vložit",
     text: "<p>V textovém editoru je napsáno <b>BOBR</b>. Bobr udělá postupně tohle:</p><ol><li>Označí <b>BO</b> a dá <b>Kopírovat</b> (Ctrl+C).</li><li>Klikne na konec textu a dá <b>Vložit</b> (Ctrl+V).</li><li>Označí úplně první písmeno <b>B</b> a dá <b>Vyjmout</b> (Ctrl+X).</li><li>Klikne na konec textu a dá dvakrát <b>Vložit</b>.</li></ol>",
     visual: null,
     question: "Co je teď v editoru napsáno?",
-    type: "text", answer: ["OBRBOBB"],
-    hint: "Vyjmout text smaže a uloží si ho. Co si teď editor pamatuje: BO, nebo B?",
-    explain: "Po kroku 2 je napsáno BOBRBO. Vyjmutím prvního B vznikne OBRBO a schránka si teď pamatuje B (původní BO zapomněla). Dvojí vložení přidá BB, takže výsledek je OBRBOBB. Schránka si pamatuje vždy jen to poslední, co jsi zkopíroval nebo vyjmul." },
+    type: "text", 
+    hint: "Vyjmout text smaže a uloží si ho. Co si teď editor pamatuje: BO, nebo B?" },
 
   /* ---------- Práce s počítačem – 5. třída ---------- */
   { id: "b-slozky", grade: "5", level: 1, topic: "pocitac", title: "Kde je diktát?",
     text: "<p>Takhle má bobr uložené složky a soubory v počítači.</p>",
     visual: "folders",
     question: "Jak zní cesta k souboru diktat.txt?",
-    type: "choice", options: ["Dokumenty/Čeština/diktat.txt", "Dokumenty/Škola/Čeština/diktat.txt", "Škola/Dokumenty/Čeština/diktat.txt", "Dokumenty/Škola/Matika/diktat.txt"], answer: "B",
-    hint: "Začni nahoře u složky Dokumenty a jdi dolů ke složce, ve které diktát leží.",
-    explain: "Soubor leží ve složce Čeština, ta je ve složce Škola a ta ve složce Dokumenty. Cesta se píše od největší složky k souboru: Dokumenty/Škola/Čeština/diktat.txt." },
+    type: "choice", options: ["Dokumenty/Čeština/diktat.txt", "Dokumenty/Škola/Čeština/diktat.txt", "Škola/Dokumenty/Čeština/diktat.txt", "Dokumenty/Škola/Matika/diktat.txt"], 
+    hint: "Začni nahoře u složky Dokumenty a jdi dolů ke složce, ve které diktát leží." },
   { id: "b-plechovka", grade: "5", level: 2, topic: "pocitac", title: "Plechovka venku",
     text: "<p>Bobr nakreslil domeček a u střechy nedotáhl čáru. Pak vybral nástroj <b>Plechovka</b>, modrou barvu a klikl tam, kde je na obrázku šipka.</p><p>Plechovka vybarví místo, kam klikneš, a rozleje se všude, kam se dostane bez překročení čáry.</p>",
     visual: "house5",
     question: "Jak bude obrázek vypadat?",
-    type: "choice", optionsVisual: "house5opts", options: ["", "", "", ""], answer: "D",
-    hint: "Bobr klikl venku. Do kterých uzavřených částí domečku se barva může dostat?",
-    explain: "Barva vyplní okolí. Ve špičce střechy je mezera, takže barva nateče i do střechy. Spodní část domečku i okno jsou uzavřené, a proto zůstanou bílé." },
+    type: "choice", optionsVisual: "house5opts", options: ["", "", "", ""], 
+    hint: "Bobr klikl venku. Do kterých uzavřených částí domečku se barva může dostat?" },
   { id: "b-velikost", grade: "5", level: 2, topic: "pocitac", title: "Plná fleška",
     text: "<p>Jedna fotka z bobrova mobilu má velikost asi <b>3 MB</b> (megabajty). Na flešce zbývá volné místo <b>1 GB</b> (gigabajt). 1 GB je přibližně 1000 MB.</p>",
     visual: null,
     question: "Kolik fotek se na flešku zhruba vejde?",
-    type: "choice", options: ["asi 3", "asi 33", "asi 333", "asi 3000"], answer: "C",
-    hint: "Kolikrát se 3 vejdou do 1000?",
-    explain: "1000 : 3 je asi 333, takže se vejde přibližně 333 fotek. Velikost dat se měří v bajtech. Kilobajt (kB) je asi tisíc bajtů, megabajt (MB) asi tisíc kilobajtů a gigabajt (GB) asi tisíc megabajtů." },
+    type: "choice", options: ["asi 3", "asi 33", "asi 333", "asi 3000"], 
+    hint: "Kolikrát se 3 vejdou do 1000?" },
   { id: "b-zpet", grade: "5", level: 3, topic: "pocitac", title: "Zpět a znovu",
     text: "<p>V prázdném editoru bobr postupně:</p><ol><li>napíše A</li><li>napíše B</li><li>napíše C</li><li>dá <b>Zpět</b> (Ctrl+Z)</li><li>dá <b>Zpět</b> (Ctrl+Z)</li><li>napíše D</li><li>dá <b>Znovu</b> (Ctrl+Y)</li><li>dá <b>Zpět</b> (Ctrl+Z)</li></ol><p>Každé napsané písmeno je jeden krok. Zpět vrátí poslední krok, Znovu zopakuje krok, který jsi naposledy vrátil.</p>",
     visual: null,
     question: "Co je na konci v editoru napsáno?",
-    type: "text", answer: ["A"],
-    hint: "Pozor na krok 6: když po vracení napíšeš něco nového, editor zapomene, co šlo vrátit zpátky.",
-    explain: "Po krocích 1 až 3 je napsáno ABC. Dvakrát Zpět dá A. Napsáním D vznikne AD a editor zapomene vrácené kroky B a C, takže Znovu nic neudělá. Poslední Zpět vrátí D a zbude jen A. Editor si kroky pamatuje jako hromádku (zásobník)." },
+    type: "text", 
+    hint: "Pozor na krok 6: když po vracení napíšeš něco nového, editor zapomene, co šlo vrátit zpátky." },
 
   /* ---------- Mistrovská výzva (extra těžké) ---------- */
   { id: "x-sifra", grade: "x", level: 1, topic: "sifry", title: "Šifra, která roste",
     text: "<p>Chytřejší bobr posouvá každé písmeno o jiný počet míst dopředu: <b>1. písmeno o 1</b>, 2. o 2, 3. o 3, 4. o 4. Když dojde na konec abecedy, pokračuje znovu od A (… Y, Z, A, B …).</p><p>Zašifrované slovo: <b style=\"font-family:var(--f-display);font-size:24px;letter-spacing:4px\">ITDD</b></p>",
     visual: "alphabet",
     question: "Jaké slovo bobr zašifroval?",
-    type: "text", answer: ["HRAZ"],
-    hint: "Posouvej zpátky: 1. písmeno o 1, 2. o 2… U posledního písmena se přes A dostaneš na konec abecedy.",
-    explain: "I − 1 = H, T − 2 = R, D − 3 = A a D − 4 = Z (D, C, B, A, Z). Slovo je HRÁZ. Když se posun mění, šifra se luští mnohem hůř než obyčejná Caesarova." },
+    type: "text", 
+    hint: "Posouvej zpátky: 1. písmeno o 1, 2. o 2… U posledního písmena se přes A dostaneš na konec abecedy." },
   { id: "x-lampy", grade: "x", level: 1, topic: "data", title: "Pět lamp",
     text: "<p>Bobři mají pět lamp. Zleva mají hodnoty <b>16, 8, 4, 2, 1</b>. Číslo se ukáže tak, že se sečtou hodnoty rozsvícených lamp (● svítí, ○ nesvítí).</p>",
     visual: null,
     question: "Jak ukážou číslo 22?",
-    type: "choice", options: ["● ● ○ ● ○", "○ ● ● ● ○", "● ○ ● ● ○", "● ○ ● ○ ●"], answer: "C",
-    hint: "Začni největší lampou, která se do 22 vejde. Kolik pak zbývá?",
-    explain: "22 = 16 + 4 + 2, svítí tedy 1., 3. a 4. lampa: ● ○ ● ● ○. Ostatní možnosti dávají 26, 14 a 21. Takhle zapisuje čísla počítač ve dvojkové soustavě." },
+    type: "choice", options: ["● ● ○ ● ○", "○ ● ● ● ○", "● ○ ● ● ○", "● ○ ● ○ ●"], 
+    hint: "Začni největší lampou, která se do 22 vejde. Kolik pak zbývá?" },
   { id: "x-lhari", grade: "x", level: 1, topic: "logika", title: "Kdo lže?",
     text: "<p>Jeden ze tří bobrů vždycky lže, další dva vždycky mluví pravdu.</p><p><b>Ali:</b> „Bára lže.“<br><b>Bára:</b> „Cyril lže.“<br><b>Cyril:</b> „Já nelžu.“</p>",
     visual: null,
     question: "Kdo je lhář?",
-    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], answer: "B",
-    hint: "Zkus postupně předpokládat, že lže Ali, pak Bára, pak Cyril. Kdy vyjde právě jeden lhář?",
-    explain: "Když lže Ali, Bára mluví pravdu, takže lže i Cyril. To by byli dva lháři. Když lže Cyril, má pravdu Bára, a pak lže i Ali. Zase dva. Jen když lže Bára, všechno sedí: Ali mluví pravdu a Cyril nelže. Zkoušení všech možností je důležitá informatická strategie." },
+    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], 
+    hint: "Zkus postupně předpokládat, že lže Ali, pak Bára, pak Cyril. Kdy vyjde právě jeden lhář?" },
   { id: "x-cesty", grade: "x", level: 1, topic: "grafy", title: "Kolik je cest?",
     text: "<p>Bobr jde z levého horního políčka (S) do pravého dolního (H). Smí chodit jen <b>doprava</b> nebo <b>dolů</b>, vždy o jedno políčko.</p>",
     visual: "paths",
     question: "Kolik různých cest může bobr jít?",
-    type: "number", answer: 6,
-    hint: "Napiš do každého políčka, kolika cestami se do něj dá dojít. Do políčka vedou cesty zleva a shora.",
-    explain: "Do políček v horním řádku i levém sloupci vede jen 1 cesta. Do každého dalšího políčka vede součet cest zleva a shora: 2, 3, 3 a nakonec 3 + 3 = 6. Sčítání menších výsledků do většího se v informatice říká dynamické programování." },
+    type: "number", 
+    hint: "Napiš do každého políčka, kolika cestami se do něj dá dojít. Do políčka vedou cesty zleva a shora." },
   { id: "x-kruh", grade: "x", level: 2, topic: "algoritmy", title: "Bobří kruh",
     text: "<p>Šest bobrů stojí v kruhu, očíslovaných 1 až 6. Bobr 1 začne počítat: „jedna“, bobr 2 „dva“. Kdo řekne „dva“, vystoupí z kruhu. Další bobr začne znovu „jedna“ a tak dál dokola, dokud nezbude jediný.</p>",
     visual: "circle",
     question: "Který bobr zůstane v kruhu poslední?",
-    type: "number", answer: 5,
-    hint: "Vystupují 2, 4, 6… Kdo začíná počítat po bobrovi 6? Nezapomeň, že kruh se stále zmenšuje.",
-    explain: "Postupně vystoupí 2, 4, 6, pak 3 a nakonec 1. Zůstane bobr 5. Tomu se říká Josefova úloha a dá se řešit i simulací krok za krokem, přesně jako to dělá počítač." },
+    type: "number", 
+    hint: "Vystupují 2, 4, 6… Kdo začíná počítat po bobrovi 6? Nezapomeň, že kruh se stále zmenšuje." },
   { id: "x-promenne", grade: "x", level: 2, topic: "programovani", title: "Prohození",
     text: "<p>V programu jsou dvě krabičky (proměnné) <b>a</b> a <b>b</b>. Příkazy se provedou postupně shora dolů.</p><div class=\"code\">a = 3\nb = 5\na = a + b\nb = a − b\na = a − b</div>",
     visual: null,
     question: "Co je na konci v krabičkách a a b?",
-    type: "choice", options: ["a = 3, b = 5", "a = 5, b = 3", "a = 8, b = 3", "a = 8, b = 5"], answer: "B",
-    hint: "Po každém řádku si zapiš, co je v krabičkách. Po 3. řádku je a = 8.",
-    explain: "a = 8, pak b = 8 − 5 = 3, pak a = 8 − 3 = 5. Hodnoty se prohodily: a = 5, b = 3. Je to chytrý trik, jak prohodit dvě čísla bez třetí krabičky." },
+    type: "choice", options: ["a = 3, b = 5", "a = 5, b = 3", "a = 8, b = 3", "a = 8, b = 5"], 
+    hint: "Po každém řádku si zapiš, co je v krabičkách. Po 3. řádku je a = 8." },
   { id: "x-barvy", grade: "x", level: 2, topic: "grafy", title: "Barevná hnízda",
     text: "<p>Bobři chtějí natřít hnízda A až E. Hnízda spojená čarou jsou sousedé a nesmí mít stejnou barvu.</p>",
     visual: "coloring",
     question: "Kolik nejméně barev potřebují?",
-    type: "number", answer: 3,
-    hint: "A, B a C jsou spojené každé s každým. Stačí jim dvě barvy? A dokážeš pak s těmi samými barvami natřít D a E?",
-    explain: "A, B a C tvoří trojúhelník, takže potřebují 3 různé barvy. Víc není potřeba: D může mít barvu jako A a E barvu jako B. Barvení grafu se používá třeba při plánování rozvrhu, aby se nic nepřekrývalo." },
+    type: "number", 
+    hint: "A, B a C jsou spojené každé s každým. Stačí jim dvě barvy? A dokážeš pak s těmi samými barvami natřít D a E?" },
   { id: "x-vazeni", grade: "x", level: 2, topic: "algoritmy", title: "Těžší kláda",
     text: "<p>Bobr má 9 klád, které vypadají úplně stejně. Jedna je ale o trochu těžší. Má rovnoramenné váhy bez závaží: na každou misku může položit libovolný počet klád a váhy ukážou, která strana je těžší, nebo že jsou v rovnováze.</p>",
     visual: null,
     question: "Kolik vážení mu jistě stačí, aby těžší kládu našel?",
-    type: "choice", options: ["1", "2", "3", "4"], answer: "B",
-    hint: "Nedávej klády na váhy po jedné. Co když je rozdělíš na tři hromádky po třech?",
-    explain: "Rozdělí klády na trojice a dvě z nich zváží. Podle toho ví, ve které trojici je těžší kláda. Z té trojice zváží dvě klády a zase ví, která je těžší (nebo že je to ta třetí). Stačí 2 vážení. Každé vážení dělí možnosti na třetiny." },
+    type: "choice", options: ["1", "2", "3", "4"], 
+    hint: "Nedávej klády na váhy po jedné. Co když je rozdělíš na tři hromádky po třech?" },
   { id: "x-dijkstra", grade: "x", level: 3, topic: "grafy", title: "Cesta přes bažinu",
     text: "<p>Bobr chce co nejrychleji ze startu <b>S</b> do cíle <b>T</b>. Čísla u cest jsou minuty.</p>",
     visual: "swamp",
     question: "Kolik minut trvá nejrychlejší cesta z S do T?",
-    type: "number", answer: 12,
-    hint: "Ke každému místu si zapiš, za kolik nejméně minut se do něj dá dojít. Pozor: do A je to rychleji přes B.",
-    explain: "Nejrychleji: S → B (2) → A (1) → C (5) → D (2) → T (2), dohromady 12 minut. Přímá cesta S → A trvá 4, ale přes B jen 3. Tento postup používá Dijkstrův algoritmus v navigacích." },
+    type: "number", 
+    hint: "Ke každému místu si zapiš, za kolik nejméně minut se do něj dá dojít. Pozor: do A je to rychleji přes B." },
   { id: "x-rekurze", grade: "x", level: 3, topic: "programovani", title: "Hráz sama sebe",
     text: "<p>Bobr má návod <b>postav(n)</b>. Když je n = 0, nedělá nic. Jinak udělá tohle:</p><div class=\"code\">postav(n):\n    polož 1 kládu\n    postav(n − 1)\n    postav(n − 1)</div>",
     visual: null,
     question: "Kolik klád položí příkaz postav(3)?",
-    type: "number", answer: 7,
-    hint: "Začni od malých čísel: postav(1) položí 1 kládu. Kolik položí postav(2)?",
-    explain: "postav(1) = 1 kláda. postav(2) = 1 + 1 + 1 = 3. postav(3) = 1 + 3 + 3 = 7. Návodu, který volá sám sebe, se říká rekurze." },
+    type: "number", 
+    hint: "Začni od malých čísel: postav(1) položí 1 kládu. Kolik položí postav(2)?" },
   { id: "x-domky", grade: "x", level: 3, topic: "logika", title: "Tři hráze",
     text: "<p>Ali, Bára a Cyril bydlí ve třech hrázích vedle sebe. Každá hráz má jinou barvu: červenou, modrou nebo zelenou.</p><ul><li>Červená hráz je hned vlevo od modré.</li><li>Ali bydlí uprostřed.</li><li>Bára bydlí v zelené hrázi.</li><li>Cyril nebydlí v červené hrázi.</li></ul>",
     visual: null,
     question: "Kdo bydlí v modré hrázi?",
-    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], answer: "C",
-    hint: "Červená a modrá jsou vedle sebe, takže jsou buď vlevo a uprostřed, nebo uprostřed a vpravo. Vyzkoušej obě možnosti.",
-    explain: "Kdyby byla červená vlevo a modrá uprostřed, zelená by byla vpravo s Bárou, Ali by byl v modré a Cyril v červené. To nejde. Platí tedy zelená, červená, modrá: Bára vlevo, Ali uprostřed v červené a Cyril vpravo v modré." },
+    type: "choice", options: ["Ali", "Bára", "Cyril", "nedá se zjistit"], 
+    hint: "Červená a modrá jsou vedle sebe, takže jsou buď vlevo a uprostřed, nebo uprostřed a vpravo. Vyzkoušej obě možnosti." },
   { id: "x-planovani", grade: "x", level: 3, topic: "planovani", title: "Stavba za jeden den",
     text: "<p>Bobří parta staví hráz. Bobrů je dost, takže úkoly, které na sobě nezávisí, mohou dělat zároveň.</p><table class=\"plan\"><tr><td><b>A</b> pokácet strom</td><td>3 h</td><td></td></tr><tr><td><b>B</b> dovléct kmeny</td><td>2 h</td><td>až po A</td></tr><tr><td><b>C</b> nanosit bláto</td><td>4 h</td><td></td></tr><tr><td><b>D</b> postavit hráz</td><td>2 h</td><td>až po B a C</td></tr></table>",
     visual: null,
     question: "Za kolik hodin nejdřív může být hráz hotová?",
-    type: "number", answer: 7,
-    hint: "Kdy nejdřív může začít úkol D? Musí počkat na B i na C.",
-    explain: "A a B zaberou 3 + 2 = 5 hodin, C mezitím zabere 4 hodiny. D může začít až po 5 hodinách a trvá 2, takže hotovo je za 7 hodin. Nejdelšímu řetězci úkolů se říká kritická cesta." }
-];
+    type: "number", 
+    hint: "Kdy nejdřív může začít úkol D? Musí počkat na B i na C." }
+]
+/* Odpovědi a vysvětlení jsou zašifrované. Úlohy se upravují ve zdrojové verzi (src/index.src.html). */
+const SECRET = "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";
+(function () { const k = "bobr-vyprava", s = atob(SECRET); let o = "";
+  for (let i = 0; i < s.length; i++) o += String.fromCharCode(s.charCodeAt(i) ^ k.charCodeAt(i % k.length));
+  const m = JSON.parse(decodeURIComponent(o)); TASKS.forEach(t => { const v = m[t.id]; if (v) { t.answer = v.a; t.explain = v.e; } }); })();;
 
 /* =====================================================================
    OBRÁZKY K ÚLOHÁM
@@ -769,14 +729,50 @@ const BADGE_ICON = `<svg class="b-ico" viewBox="0 0 34 34" aria-hidden="true"><p
    STAV A UKLÁDÁNÍ
    ===================================================================== */
 const KEY = "bobri-vyprava-v1";
-let store = { name: "", profiles: {} };
-try { const raw = localStorage.getItem(KEY); if (raw) store = Object.assign(store, JSON.parse(raw)); } catch (e) {}
+function loadStore() {
+  const s = { name: "", profiles: {}, starts: {} };
+  try { const raw = localStorage.getItem(KEY); if (raw) Object.assign(s, JSON.parse(raw)); } catch (e) {}
+  if (!s.starts) s.starts = {};
+  return s;
+}
+let store = loadStore();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
-function profKey(g) { return g + "|" + (store.name || "host").trim().toLowerCase(); }
+function nameKey() { return (store.name || "host").trim().toLowerCase(); }
+function profKey(g) { return g + "|" + nameKey(); }
 function prof(g) { const k = profKey(g); if (!store.profiles[k]) store.profiles[k] = { tasks: {} }; return store.profiles[k]; }
-function tstate(g, id) { const p = prof(g); if (!p.tasks[id]) p.tasks[id] = { status: "new", attempts: 0, stars: 0 }; return p.tasks[id]; }
+function tstate(g, id) {
+  const p = prof(g); if (!p.tasks[id]) p.tasks[id] = { status: "new", attempts: 0, stars: 0 };
+  const st = p.tasks[id]; if (st.time == null) st.time = 0; if (!st.wrong) st.wrong = []; return st;
+}
+/* označí profil jako právě používaný (kvůli upozornění na víc jmen na jednom počítači) */
+function touchProf(g) { const p = prof(g); p.updated = Date.now(); p.name = (store.name || "").trim(); }
 
-const view = { screen: "home", grade: null, taskId: null, choice: null, result: null, confirmReset: false };
+/* Začátek práce se ukládá s postupem, takže ho znovunačtení stránky nevynuluje.
+   Starší než 3 hodiny se bere jako nová hodina. */
+const LESSON_MS = 3 * 60 * 60 * 1000;
+function getStart() { const v = store.starts[nameKey()]; return v && Date.now() - v < LESSON_MS ? new Date(v) : null; }
+function ensureStart() { if (!getStart()) { store.starts[nameKey()] = Date.now(); save(); } }
+
+const view = { screen: "home", grade: null, taskId: null, choice: null, result: null, timing: null };
+
+/* Měření času nad úlohou: počítá se jen doba, kdy je úloha otevřená, nevyřešená a okno je vidět.
+   Jeden nepřerušený úsek se počítá nejvýš 10 minut. */
+function flushTime() {
+  const tm = view.timing; if (!tm) return;
+  const st = tstate(tm.g, tm.id);
+  st.time += Math.round(Math.min(Date.now() - tm.t0, 600000) / 1000);
+  view.timing = null; save();
+}
+function startTiming() {
+  if (view.screen !== "task" || document.hidden) return;
+  const st = tstate(view.grade, view.taskId);
+  if (st.status === "done" || st.status === "revealed") return;
+  view.timing = { g: view.grade, id: view.taskId, t0: Date.now() };
+}
+document.addEventListener("visibilitychange", () => { if (document.hidden) flushTime(); else startTiming(); });
+window.addEventListener("pagehide", flushTime);
+/* Když je aplikace otevřená ve dvou oknech, převezme postup z toho druhého okna. */
+window.addEventListener("storage", e => { if (e.key === KEY) { flushTime(); store = loadStore(); if (view.screen !== "task") render(); else startTiming(); } });
 
 function tasksOf(g, lv) { return TASKS.filter(t => t.grade === g && (lv == null || t.level === lv)); }
 function isSolved(st) { return st.status === "done"; }
@@ -803,13 +799,14 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 const starRow = (n, max = 3) => Array.from({ length: max }, (_, i) => i < n ? "<b>★</b>" : "★").join("");
 
 function render() {
+  flushTime();
   document.getElementById("barRight").innerHTML = view.grade && view.screen !== "home"
     ? `<span class="pill"><span class="star">★</span> ${stats(view.grade).stars}</span><span class="pill">${esc(store.name || "host")}</span><button class="btn finish" id="finishBtn">Ukončit a odeslat výsledky</button>` : "";
   const fin = document.getElementById("finishBtn"); if (fin) fin.onclick = () => openModal("confirm");
   if (view.screen === "home") renderHome();
   else if (view.screen === "map") renderMap();
   else renderTask();
-  renderReset();
+  startTiming();
   window.scrollTo({ top: 0 });
 }
 
@@ -845,7 +842,7 @@ function renderHome() {
   app.querySelectorAll(".grade:not(.secret)").forEach(b => b.addEventListener("click", () => {
     if (!store.name.trim()) { inp.focus(); inp.classList.remove("shake"); void inp.offsetWidth; inp.classList.add("shake"); inp.placeholder = "nejdřív napiš své jméno a příjmení"; return; }
     view.grade = b.dataset.grade; view.screen = "map";
-    if (!session.start) session.start = new Date();
+    ensureStart();
     render();
   }));
 }
@@ -897,12 +894,12 @@ function renderTask() {
   let fb = "";
   const r = view.result;
   if (st.status === "done") {
-    fb = `<div class="feedback ok"><h3>Správně! ${r === "ok" ? "Paráda." : ""}</h3><div class="big-stars">${starRow(st.stars)}</div><p>${t.explain}</p></div>`;
+    fb = `<div class="feedback ok"><h3>Správně! ${r === "ok" && !st.seen ? "Paráda." : ""}</h3><div class="big-stars">${starRow(st.stars)}</div>${st.seen ? `<p class="tries">Řešení jsi už viděl(a), proto jen 1 hvězdička.</p>` : ""}<p>${t.explain}</p></div>`;
     const gs = stats(g);
     if (g !== "x" && gs.solved === gs.total && r === "ok") fb += `<div class="unlock"><h3>🏆 Celá ${GRADES[g].label} je zdolaná!</h3><p>Otevřela se ti tajná <b>Mistrovská výzva</b> s 12 extra těžkými úlohami. Troufneš si?</p><div><button class="btn" id="expertBtn" style="background:var(--sun);box-shadow:none;color:#3a2a06">Do Mistrovské výzvy →</button></div></div>`;
     if (g === "x" && gs.solved === gs.total && r === "ok") fb += `<div class="unlock"><h3>🏆 Jsi bobří mistr!</h3><p>Vyřešil(a) jsi všechny extra těžké úlohy. To je výkon, na který jsou hrdí i staří bobři.</p></div>`;
   } else if (st.status === "revealed") {
-    fb = `<div class="feedback info"><h3>Řešení</h3><p>Správná odpověď: <b>${esc(answerText(t))}</b></p><p>${t.explain}</p><p class="tries">Tuhle úlohu si můžeš zkusit znovu později – tlačítkem dole.</p></div>`;
+    fb = `<div class="feedback info"><h3>Řešení</h3><p>Správná odpověď: <b>${esc(answerText(t))}</b></p><p>${t.explain}</p><p class="tries">Tuhle úlohu si můžeš zkusit znovu tlačítkem dole. Protože jsi řešení viděl(a), dostaneš za ni nejvýš 1 hvězdičku.</p></div>`;
   } else if (r === "no") {
     fb = `<div class="feedback no"><h3>Ještě ne. Zkus to znovu!</h3>${st.attempts >= 2 ? `<p><b>Nápověda:</b> ${t.hint}</p>` : ""}</div>`;
   }
@@ -934,11 +931,12 @@ function renderTask() {
   if (inp && !finished) { inp.focus({ preventScroll: true }); inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); }); }
   const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
   on("checkBtn", check);
-  on("revealBtn", () => { st.status = "revealed"; st.stars = 0; save(); view.result = null; render(); });
+  on("revealBtn", () => { flushTime(); st.status = "revealed"; st.stars = 0; st.seen = true; touchProf(g); save(); view.result = null; render(); });
   on("nextBtn", () => openTask(next.id));
   on("mapBtn", toMap);
-  on("expertBtn", () => { view.grade = "x"; view.screen = "map"; if (!session.start) session.start = new Date(); render(); });
-  on("retryBtn", () => { st.status = "new"; st.attempts = 0; save(); view.result = null; view.choice = null; render(); });
+  on("expertBtn", () => { view.grade = "x"; view.screen = "map"; ensureStart(); render(); });
+  /* Zkusit znovu: pokusy i záznam o zobrazeném řešení zůstávají */
+  on("retryBtn", () => { st.status = "new"; save(); view.result = null; view.choice = null; render(); });
 }
 
 function toMap() { view.screen = "map"; render(); }
@@ -967,25 +965,16 @@ function check() {
     if (box) { box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake"); }
     return;
   }
-  st.attempts++;
+  flushTime();
+  st.attempts++; touchProf(view.grade);
   if (isCorrect(t, val)) {
-    st.status = "done"; st.stars = st.attempts === 1 ? 3 : st.attempts === 2 ? 2 : 1;
+    st.status = "done"; st.stars = st.seen ? 1 : st.attempts === 1 ? 3 : st.attempts === 2 ? 2 : 1;
     view.result = "ok"; save(); render(); confetti();
   } else {
+    if (st.wrong.length < 12) st.wrong.push(String(val).trim().slice(0, 20));
     view.result = "no"; save(); render();
     const card = document.querySelector(".task"); if (card) card.classList.add("shake");
   }
-}
-
-function renderReset() {
-  const box = document.getElementById("resetBox");
-  if (!view.grade || view.screen !== "map") { box.innerHTML = ""; return; }
-  box.innerHTML = view.confirmReset
-    ? `<span class="confirm">Opravdu smazat postup pro ${esc(store.name)} (${GRADES[view.grade].label})? <button class="btn ghost" id="resYes" style="padding:4px 12px;font-size:14px">Ano, smazat</button><button class="reset" id="resNo">Ne</button></span>`
-    : `<button class="reset" id="resAsk">Smazat můj postup v této třídě</button>`;
-  const a = document.getElementById("resAsk"); if (a) a.onclick = () => { view.confirmReset = true; renderReset(); };
-  const y = document.getElementById("resYes"); if (y) y.onclick = () => { delete store.profiles[profKey(view.grade)]; save(); view.confirmReset = false; render(); };
-  const n = document.getElementById("resNo"); if (n) n.onclick = () => { view.confirmReset = false; renderReset(); };
 }
 
 /* konfety */
@@ -1009,32 +998,57 @@ function confetti() {
    ===================================================================== */
 const RESULTS_URL = "https://script.google.com/macros/s/AKfycbzsIh5u-x5EVG3ZM-KzRzJQemIMe_VyQ4J9dQZG-8SwD3cDVHA_u5I6OBWCK_JL7a_YDg/exec";
 
-const session = { start: null };
 function fmtDate(d) { return d.toLocaleString("cs-CZ", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }); }
+function fmtSec(s) { s = Math.round(s || 0); return s < 60 ? `${s} s` : `${Math.floor(s / 60)} min ${s % 60} s`; }
+function wrongList(st) { return st.wrong && st.wrong.length ? `, špatně: ${st.wrong.join(" | ")}${st.attempts - (st.status === "done" ? 1 : 0) > st.wrong.length ? " …" : ""}` : ""; }
 function gradeDetail(g) {
   const p = prof(g);
   return tasksOf(g).map(t => { const st = p.tasks[t.id];
-    const v = !st || st.status === "new" ? (st && st.attempts ? `nevyřešeno (${st.attempts}× špatně)` : "nezkoušel(a)")
-      : st.status === "revealed" ? `zobrazil(a) řešení (${st.attempts}× špatně)` : `${"★".repeat(st.stars)} (${st.attempts}. pokus)`;
+    let v;
+    if (!st || (st.status === "new" && !st.attempts)) v = "nezkoušel(a)";
+    else if (st.status === "new") v = `nevyřešeno (${st.attempts}× špatně, ${fmtSec(st.time)}${st.seen ? ", viděl(a) řešení" : ""}${wrongList(st)})`;
+    else if (st.status === "revealed") v = `zobrazil(a) řešení (${st.attempts}× špatně, ${fmtSec(st.time)}${wrongList(st)})`;
+    else v = `${"★".repeat(st.stars)}${st.seen ? " po zobrazení řešení" : ""} (${st.attempts}. pokus, ${fmtSec(st.time)}${wrongList(st)})`;
     return `${t.title}: ${v}`; }).join("; ");
+}
+/* Úlohy, které stojí za kontrolu: vyřešené napoprvé za pár sekund a úlohy s hodně pokusy */
+const FAST_SEC = 12;
+function warnings() {
+  const fast = [], many = [];
+  ["4", "5", "x"].forEach(g => { const p = prof(g);
+    tasksOf(g).forEach(t => { const st = p.tasks[t.id]; if (!st) return;
+      if (st.status === "done" && st.attempts === 1 && !st.seen && st.time != null && st.time < FAST_SEC) fast.push(`${t.title} (${fmtSec(st.time)})`);
+      if (st.attempts >= 5) many.push(`${t.title} (${st.attempts}×)`); }); });
+  return { fast, many };
+}
+/* Jiná jména, pod kterými se na tomto počítači pracovalo během posledních 3 hodin */
+function otherNames() {
+  const me = nameKey(), seen = new Set();
+  Object.entries(store.profiles).forEach(([k, p]) => { const n = k.split("|").slice(1).join("|");
+    if (n !== me && p.updated && Date.now() - p.updated < LESSON_MS) seen.add(p.name || n); });
+  return [...seen];
 }
 /* Výsledky se posílají za všechny části zvlášť – dítě může zkoušet úlohy 4. i 5. třídy */
 function buildResults() {
-  const now = new Date();
-  const minutes = session.start ? Math.max(1, Math.round((now - session.start) / 60000)) : "";
+  const now = new Date(), start = getStart();
+  const minutes = start ? Math.max(1, Math.round((now - start) / 60000)) : "";
   const touched = g => tasksOf(g).some(t => { const st = prof(g).tasks[t.id]; return st && (st.attempts > 0 || st.status !== "new"); });
-  const revealedIn = g => tasksOf(g).filter(t => (prof(g).tasks[t.id] || {}).status === "revealed").length;
+  const revealedIn = g => tasksOf(g).filter(t => (prof(g).tasks[t.id] || {}).seen).length;
+  const W = warnings(), others = otherNames();
   const rows = [
     ["Odesláno", fmtDate(now)],
     ["Jméno", (store.name || "").trim()],
-    ["Začátek práce", session.start ? fmtDate(session.start) : ""],
-    ["Doba práce (min)", minutes]
+    ["Začátek práce", start ? fmtDate(start) : ""],
+    ["Doba práce (min)", minutes],
+    ["Vyřešeno napoprvé za méně než " + FAST_SEC + " s", W.fast.join(", ")],
+    ["Hodně pokusů (5 a víc)", W.many.join(", ")],
+    ["Jiná jména na tomto počítači", others.join(", ")]
   ];
   let solved = 0, stars = 0;
   ["4", "5", "x"].forEach(g => {
     const s = stats(g), name = g === "x" ? "Mistrovská výzva" : GRADES[g].label + " (" + GRADES[g].category + ")";
     solved += s.solved; stars += s.stars;
-    rows.push([name + ": vyřešeno", touched(g) ? `${s.solved}/${s.total}` : ""]);
+    rows.push([name + ": vyřešeno", touched(g) ? `${s.solved} z ${s.total}` : ""]);
     rows.push([name + ": hvězdičky", touched(g) ? s.stars : ""]);
     rows.push([name + ": zobrazená řešení", touched(g) ? revealedIn(g) : ""]);
   });
@@ -1057,7 +1071,7 @@ function openModal(state, info) {
   const on = (id, fn) => { const el = document.getElementById(id); if (el) { el.onclick = fn; } };
   on("mNo", closeModal);
   on("mYes", sendResults);
-  on("mDone", () => { closeModal(); store.name = ""; save(); session.start = null; view.grade = null; view.screen = "home"; render(); });
+  on("mDone", () => { closeModal(); delete store.starts[nameKey()]; store.name = ""; save(); view.grade = null; view.screen = "home"; render(); });
   const first = modal.querySelector("button"); if (first) first.focus();
 }
 function closeModal() { modal.hidden = true; }
@@ -1066,9 +1080,13 @@ async function sendResults() {
   const r = buildResults();
   openModal("sending");
   try {
-    await fetch(RESULTS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ headers: r.headers, values: r.values }) });
-    openModal("sent");
-  } catch (e) { openModal("error"); }
+    const res = await fetch(RESULTS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ headers: r.headers, values: r.values }) });
+    const txt = (await res.text()).trim();
+    if (txt === "ok") openModal("sent");
+    else openModal("error", "Tabulka výsledky nepřijala (" + esc(txt.slice(0, 160) || "prázdná odpověď") + ").");
+  } catch (e) {
+    openModal("error", "Nepodařilo se spojit s tabulkou. Zkontroluj internet. Paní učitelka může zkontrolovat, že je skript nasazený s přístupem „Kdokoli“.");
+  }
 }
 modal.addEventListener("click", e => { if (e.target === modal && !modal.querySelector("#mDone")) closeModal(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden && modal.querySelector("#mNo")) closeModal(); });
